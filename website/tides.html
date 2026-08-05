@@ -14,108 +14,62 @@
   <div class="tide-shell">
     <header class="page-header">
       <a class="back-link" href="index.html">← Dashboard</a>
-      <div class="brand-lockup">
-        <p>PROJECT LIGHTHOUSE</p>
-        <h1>Tides</h1>
-      </div>
-      <div class="station-pill">
-        <span>Station</span>
-        <strong>Hatteras Inlet</strong>
-      </div>
+      <div class="brand-lockup"><p>PROJECT LIGHTHOUSE</p><h1>Tides</h1></div>
+      <div class="station-pill"><span>Station</span><strong>Hatteras Inlet</strong></div>
     </header>
 
     <main>
+      <section class="action-banner" id="actionBanner">
+        <span class="action-dot"></span>
+        <div><strong id="actionTitle">Reading the tide…</strong><p id="actionText">Connecting to NOAA predictions.</p></div>
+      </section>
+
       <section class="hero-card">
         <div class="hero-copy">
-          <p class="eyebrow">NEXT TIDE</p>
+          <p class="eyebrow">CURRENT TIDE</p>
           <div class="next-tide-line">
             <span id="nextTideIcon" class="tide-symbol">↑</span>
-            <div>
-              <h2 id="nextTideType">Loading…</h2>
-              <p id="nextTideTime">Connecting to NOAA</p>
-            </div>
+            <div><h2 id="tideTrend">Loading…</h2><p id="nextTideTime">Connecting to NOAA</p></div>
+          </div>
+          <div class="progress-block">
+            <div class="progress-meta"><strong id="progressLabel">—</strong><span id="progressPercent">—</span></div>
+            <div class="progress-track"><span id="progressBar"></span></div>
           </div>
           <div class="countdown" id="countdown">—</div>
           <p class="updated" id="updatedLabel">Official NOAA predictions · local Hatteras time</p>
         </div>
 
         <div class="hero-stats">
-          <article>
-            <span>Height</span>
-            <strong id="nextTideHeight">—</strong>
-          </article>
-          <article>
-            <span>Current trend</span>
-            <strong id="tideTrend">—</strong>
-          </article>
-          <article>
-            <span>Following tide</span>
-            <strong id="followingTide">—</strong>
-          </article>
-          <article>
-            <span>Time zone</span>
-            <strong>EST / EDT</strong>
-          </article>
+          <article><span>Next tide</span><strong id="nextTideType">—</strong></article>
+          <article><span>Height</span><strong id="nextTideHeight">—</strong></article>
+          <article><span>Following tide</span><strong id="followingTide">—</strong></article>
+          <article><span>Time zone</span><strong>Local EST / EDT</strong></article>
         </div>
       </section>
 
+      <section class="quick-grid">
+        <article class="quick-card"><span class="quick-icon">☾</span><div><small>Moon</small><strong id="moonPhase">—</strong><p id="moonIllumination">—</p></div></article>
+        <article class="quick-card"><span class="quick-icon">☀</span><div><small>Sunrise</small><strong id="sunrise">—</strong><p>Hatteras local time</p></div></article>
+        <article class="quick-card"><span class="quick-icon">◐</span><div><small>Sunset</small><strong id="sunset">—</strong><p>Hatteras local time</p></div></article>
+        <article class="quick-card"><span class="quick-icon">🎣</span><div><small>Best fishing window</small><strong id="fishingWindow">—</strong><p id="fishingReason">Based on tide movement</p></div></article>
+      </section>
+
       <section class="panel tide-curve-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">TODAY</p>
-            <h2>Tide cycle</h2>
-          </div>
-          <p id="todayDate" class="section-note"></p>
-        </div>
-        <div class="curve-wrap">
-          <svg id="tideCurve" viewBox="0 0 900 260" role="img" aria-label="Today's predicted tide curve"></svg>
-        </div>
+        <div class="section-heading"><div><p class="eyebrow">TODAY</p><h2>Tide cycle</h2></div><p id="todayDate" class="section-note"></p></div>
+        <div class="curve-wrap"><svg id="tideCurve" viewBox="0 0 900 280" role="img" aria-label="Today's predicted tide curve"></svg></div>
         <div id="todayEvents" class="event-grid"></div>
       </section>
 
       <section class="split-grid">
-        <section class="panel">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">NEXT 48 HOURS</p>
-              <h2>Upcoming tides</h2>
-            </div>
-          </div>
-          <div id="upcomingList" class="upcoming-list"></div>
-        </section>
-
-        <aside class="panel guidance-panel">
-          <p class="eyebrow">ISLAND GUIDANCE</p>
-          <h2 id="guidanceTitle">Reading the water</h2>
-          <p id="guidanceText">Tide guidance will appear after the predictions load.</p>
-          <div class="source-note">
-            Predictions use NOAA station <strong>TEC2791</strong>, Hatteras Inlet, referenced to MLLW. Times automatically follow local standard or daylight time.
-          </div>
-        </aside>
+        <section class="panel"><div class="section-heading"><div><p class="eyebrow">NEXT 48 HOURS</p><h2>Upcoming tides</h2></div></div><div id="upcomingList" class="upcoming-list"></div></section>
+        <aside class="panel guidance-panel"><p class="eyebrow">ISLAND GUIDANCE</p><h2 id="guidanceTitle">Reading the water</h2><p id="guidanceText">Tide guidance will appear after predictions load.</p><div class="source-note">Predictions use NOAA station <strong>TEC2791</strong>, Hatteras Inlet, referenced to MLLW. Times automatically follow local standard or daylight time.</div></aside>
       </section>
 
-      <section class="panel week-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">THIS WEEK</p>
-            <h2>7-day tide table</h2>
-          </div>
-          <p class="section-note">High and low water predictions</p>
-        </div>
-        <div id="weekTable" class="week-table"></div>
-      </section>
+      <section class="panel week-panel"><div class="section-heading"><div><p class="eyebrow">THIS WEEK</p><h2>7-day tide table</h2></div><p class="section-note">High and low water predictions</p></div><div id="weekTable" class="week-table"></div></section>
 
-      <section class="panel station-panel">
-        <div>
-          <p class="eyebrow">DATA SOURCE</p>
-          <h2>NOAA Hatteras Inlet</h2>
-          <p>Station TEC2791 · Subordinate station · Datum MLLW · 35°12.0′N, 75°44.0′W</p>
-        </div>
-        <div class="station-badge">NOAA / NOS / CO-OPS</div>
-      </section>
+      <section class="panel station-panel"><div><p class="eyebrow">DATA SOURCE</p><h2>NOAA Hatteras Inlet</h2><p>Station TEC2791 · Subordinate station · Datum MLLW · 35°12.0′N, 75°44.0′W</p></div><div class="station-badge">NOAA / NOS / CO-OPS</div></section>
     </main>
   </div>
-
   <script src="tides.js"></script>
 </body>
 </html>
