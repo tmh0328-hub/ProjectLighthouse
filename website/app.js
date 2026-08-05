@@ -1,4 +1,3 @@
-
 const moduleData = {
   weather: {
     title: "Weather",
@@ -33,7 +32,7 @@ const moduleData = {
       ["Road cameras", "NCDOT links"],
       ["Beach cameras", "Pier and surf links"],
       ["Ferry cameras", "Terminal links"],
-      ["Map view", "Planned for MVP"]
+      ["Map view", "Camera map"]
     ]
   },
   roads: {
@@ -83,6 +82,11 @@ const dashboardTitle = document.getElementById("dashboardTitle");
 
 document.querySelectorAll(".module").forEach((button) => {
   button.addEventListener("click", () => {
+    if (button.dataset.module === "cameras") {
+      window.location.href = "cameras.html";
+      return;
+    }
+
     const data = moduleData[button.dataset.module];
     detailTitle.textContent = data.title;
     detailBody.innerHTML = `
@@ -95,7 +99,7 @@ document.querySelectorAll(".module").forEach((button) => {
         `).join("")}
       </div>
       <div class="prototype-note">
-        This is a clickable layout prototype. Live data and official source links come later.
+        This module is still in development.
       </div>
     `;
     dialog.showModal();
