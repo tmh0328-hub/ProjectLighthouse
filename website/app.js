@@ -88,6 +88,11 @@ document.querySelectorAll(".module").forEach((button) => {
       return;
     }
 
+    if (button.dataset.module === "tides") {
+      window.location.href = "tides.html";
+      return;
+    }
+
     const data = moduleData[button.dataset.module];
     detailTitle.textContent = data.title;
     detailBody.innerHTML = `
