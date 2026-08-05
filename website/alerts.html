@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Project Lighthouse alerts for Hatteras Island." />
+  <title>Alerts | Project Lighthouse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="alerts.css" />
+</head>
+<body>
+  <main class="alerts-shell">
+    <header class="page-header">
+      <a class="back-link" href="index.html">← Dashboard</a>
+      <div>
+        <p class="eyebrow">PROJECT LIGHTHOUSE</p>
+        <h1>Island Alerts</h1>
+        <p class="tagline">Official alerts and emergency information for Hatteras Island.</p>
+      </div>
+    </header>
+
+    <section class="status-panel">
+      <div>
+        <span class="status-label">Current status</span>
+        <strong id="alertStatus">Checking official sources…</strong>
+      </div>
+      <button id="refreshAlerts" type="button">Refresh</button>
+    </section>
+
+    <section id="alertList" class="alert-list" aria-live="polite"></section>
+
+    <section class="source-panel">
+      <div class="section-heading">
+        <p class="eyebrow">OFFICIAL SOURCES</p>
+        <h2>Where the information comes from</h2>
+      </div>
+      <div class="source-grid">
+        <a href="https://api.weather.gov/alerts/active?point=35.2677,-75.5424" target="_blank" rel="noopener noreferrer">
+          <strong>National Weather Service</strong>
+          <span>Live weather, flood, marine and coastal alerts for the Buxton area.</span>
+        </a>
+        <a href="https://www.drivenc.gov/" target="_blank" rel="noopener noreferrer">
+          <strong>DriveNC</strong>
+          <span>Road closures, incidents, restrictions and NC-12 conditions.</span>
+        </a>
+        <a href="https://www.ncdot.gov/travel-maps/ferry-tickets-services/Pages/default.aspx" target="_blank" rel="noopener noreferrer">
+          <strong>NCDOT Ferry Division</strong>
+          <span>Official ferry service updates, schedules and disruptions.</span>
+        </a>
+        <a href="https://www.darenc.gov/alerts" target="_blank" rel="noopener noreferrer">
+          <strong>Dare County / OBX Alerts</strong>
+          <span>Evacuations, public-safety notices and time-critical county alerts.</span>
+        </a>
+        <a href="https://www.nps.gov/caha/planyourvisit/conditions.htm" target="_blank" rel="noopener noreferrer">
+          <strong>Cape Hatteras National Seashore</strong>
+          <span>Park conditions, closures and access notices.</span>
+        </a>
+      </div>
+      <p class="source-note">Only National Weather Service alerts are loaded automatically in this MVP. The remaining official sources are linked for direct verification until approved structured feeds are added.</p>
+    </section>
+  </main>
+  <script src="alerts.js"></script>
+</body>
+</html>
