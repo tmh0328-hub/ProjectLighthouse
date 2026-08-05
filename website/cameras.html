@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Project Lighthouse camera directory for Hatteras Island." />
+  <meta name="description" content="Trusted Hatteras Island live camera links by topic, village, and map." />
   <title>Cameras | Project Lighthouse</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,50 +11,63 @@
   <link rel="stylesheet" href="cameras.css" />
 </head>
 <body>
-  <div class="camera-shell">
-    <header class="page-header">
-      <a class="back-link" href="index.html">← Dashboard</a>
-      <div>
-        <p class="eyebrow">PROJECT LIGHTHOUSE</p>
-        <h1>Island Cameras</h1>
-        <p class="tagline">See what the island looks like right now.</p>
-      </div>
-    </header>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="mark">◭</span><span>PROJECT<br><strong>LIGHTHOUSE</strong></span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Dashboard</a>
+      <a class="active" href="cameras.html">Cameras</a>
+      <a href="weather.html">Weather</a>
+      <a href="tides.html">Tides</a>
+    </nav>
+  </header>
 
-    <section class="toolbar" aria-label="Camera controls">
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div>
+        <p class="eyebrow">LIVE VIEWS</p>
+        <h1>Cameras</h1>
+        <p class="muted">Trusted public camera sources around Hatteras Island.</p>
+      </div>
+
       <div class="view-tabs" role="tablist" aria-label="Camera views">
-        <button class="view-tab active" data-view="village" role="tab" aria-selected="true">Village</button>
-        <button class="view-tab" data-view="topic" role="tab" aria-selected="false">Topic</button>
-        <button class="view-tab" data-view="map" role="tab" aria-selected="false">Map</button>
+        <button class="view-tab active" data-view="topic">By Topic</button>
+        <button class="view-tab" data-view="village">By Village</button>
+        <button class="view-tab" data-view="map">Map View</button>
       </div>
 
       <label class="search-box">
-        <span>Search cameras</span>
-        <input id="cameraSearch" type="search" placeholder="Buxton, ferry, surf..." />
+        <span>Search</span>
+        <input id="cameraSearch" type="search" placeholder="ferry, Rodanthe, traffic..." />
       </label>
+
+      <div class="about-card">
+        <strong>About these links</strong>
+        <p>Feeds are operated by government agencies and local organizations. Lighthouse opens the original source in a new tab.</p>
+      </div>
+
+      <p class="verified">Last verified: Aug. 5, 2026</p>
+    </aside>
+
+    <section class="content-panel">
+      <div class="content-head">
+        <div>
+          <p class="eyebrow">CAMERA DIRECTORY</p>
+          <h2 id="viewTitle">By Topic</h2>
+          <p id="viewDescription">Choose a trusted source by camera type.</p>
+        </div>
+        <div class="count-pill"><strong id="cameraCount">0</strong><span>sources</span></div>
+      </div>
+      <div id="cameraView" class="camera-view" aria-live="polite"></div>
     </section>
-
-    <main>
-      <section class="summary-strip" aria-label="Camera library summary">
-        <article><span>Camera records</span><strong id="cameraCount">0</strong></article>
-        <article><span>Villages covered</span><strong id="villageCount">0</strong></article>
-        <article><span>Live feeds</span><strong id="liveCount">0</strong></article>
-        <article><span>Snapshots</span><strong id="snapshotCount">0</strong></article>
-      </section>
-
-      <section id="cameraView" class="camera-view" aria-live="polite"></section>
-    </main>
-  </div>
+  </main>
 
   <dialog id="cameraDialog">
-    <div class="dialog-head">
-      <div>
-        <p class="eyebrow" id="dialogCategory">CAMERA</p>
-        <h2 id="dialogTitle">Camera title</h2>
-      </div>
-      <button id="closeDialog" class="close-button" aria-label="Close">×</button>
-    </div>
-    <div id="dialogBody" class="dialog-body"></div>
+    <button id="closeDialog" class="close-button" aria-label="Close">×</button>
+    <p class="eyebrow" id="dialogCategory">CAMERA</p>
+    <h2 id="dialogTitle"></h2>
+    <p id="dialogDescription" class="dialog-description"></p>
+    <div id="dialogMeta" class="dialog-meta"></div>
+    <a id="openCameraLink" class="primary-button" target="_blank" rel="noopener noreferrer">Open camera source ↗</a>
   </dialog>
 
   <script src="cameras.js"></script>
