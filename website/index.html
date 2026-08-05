@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Project Lighthouse: a dashboard for Hatteras Island." />
+  <title>Project Lighthouse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">PROJECT LIGHTHOUSE</p>
+        <h1>Hatteras Island Dashboard</h1>
+        <p class="tagline">Let the light guide you.</p>
+      </div>
+
+      <div class="location-control">
+        <label for="communitySelect">Community</label>
+        <select id="communitySelect">
+          <option>Rodanthe</option>
+          <option>Waves</option>
+          <option>Salvo</option>
+          <option>Avon</option>
+          <option selected>Buxton</option>
+          <option>Frisco</option>
+          <option>Hatteras</option>
+        </select>
+      </div>
+    </header>
+
+    <section class="status-strip" aria-label="Island status summary">
+      <div><span class="status-dot good"></span><strong>NC-12</strong><span>Open</span></div>
+      <div><span class="status-dot good"></span><strong>Ferry</strong><span>On schedule</span></div>
+      <div><span class="status-dot caution"></span><strong>Rip risk</strong><span>Moderate</span></div>
+      <div><span class="status-dot good"></span><strong>Alerts</strong><span>None active</span></div>
+    </section>
+
+    <main>
+      <section class="dashboard-heading">
+        <div>
+          <p class="eyebrow">TODAY AT A GLANCE</p>
+          <h2 id="dashboardTitle">Buxton</h2>
+        </div>
+        <p class="updated">Prototype data · not live yet</p>
+      </section>
+
+      <section class="module-grid" id="moduleGrid">
+        <button class="module weather" data-module="weather">
+          <div class="module-icon">☀</div>
+          <div class="module-copy">
+            <span class="module-label">Weather</span>
+            <strong>81°F</strong>
+            <span>SW 14 mph · 30% rain</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module tides" data-module="tides">
+          <div class="module-icon">≈</div>
+          <div class="module-copy">
+            <span class="module-label">Tides</span>
+            <strong>High 7:18 PM</strong>
+            <span>Rising · 2 hr 41 min</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module fishing" data-module="fishing">
+          <div class="module-icon">🎣</div>
+          <div class="module-copy">
+            <span class="module-label">Fishing</span>
+            <strong>Good</strong>
+            <span>Incoming tide · SW wind</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module cameras" data-module="cameras">
+          <div class="module-icon">◉</div>
+          <div class="module-copy">
+            <span class="module-label">Cameras</span>
+            <strong>18 online</strong>
+            <span>Roads · beaches · ferries</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module roads" data-module="roads">
+          <div class="module-icon">↟</div>
+          <div class="module-copy">
+            <span class="module-label">Roads</span>
+            <strong>Normal</strong>
+            <span>NC-12 open · no flooding</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module ferry" data-module="ferry">
+          <div class="module-icon">⛴</div>
+          <div class="module-copy">
+            <span class="module-label">Ferries</span>
+            <strong>On schedule</strong>
+            <span>Hatteras–Ocracoke</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module beaches" data-module="beaches">
+          <div class="module-icon">⌁</div>
+          <div class="module-copy">
+            <span class="module-label">Beaches</span>
+            <strong>Moderate risk</strong>
+            <span>Surf 2–3 ft · water 78°F</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module map" data-module="map">
+          <div class="module-icon">⌖</div>
+          <div class="module-copy">
+            <span class="module-label">Island Map</span>
+            <strong>Explore Hatteras</strong>
+            <span>Accesses · ramps · POIs</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="detailDialog">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">MODULE DETAIL</p>
+        <h2 id="detailTitle">Weather</h2>
+      </div>
+      <button id="closeDialog" class="close-button" aria-label="Close">×</button>
+    </div>
+    <div id="detailBody" class="detail-body"></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
