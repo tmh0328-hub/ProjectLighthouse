@@ -100,7 +100,8 @@ h1 {
   overflow: hidden;
 }
 
-.status-strip > div {
+.status-strip > div,
+.status-strip > a {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -109,8 +110,26 @@ h1 {
   font-size: .88rem;
 }
 
-.status-strip > div:last-child { border-right: 0; }
+.status-strip > div:last-child,
+.status-strip > a:last-child { border-right: 0; }
 .status-strip span:last-child { color: rgba(255,255,255,.7); }
+
+.status-link {
+  color: white;
+  text-decoration: none;
+  transition: background .18s ease;
+}
+
+.status-link:hover { background: rgba(255,255,255,.08); }
+.status-link:focus-visible {
+  outline: 3px solid rgba(255,255,255,.35);
+  outline-offset: -3px;
+}
+.status-chevron {
+  margin-left: auto;
+  color: rgba(255,255,255,.82) !important;
+  font-weight: 800;
+}
 
 .status-dot {
   width: 8px;
@@ -298,8 +317,10 @@ dialog::backdrop {
   .topbar { align-items: stretch; flex-direction: column; border-radius: 18px; padding: 20px; }
   .location-control { min-width: 0; }
   .status-strip { grid-template-columns: repeat(2, 1fr); }
-  .status-strip > div:nth-child(2) { border-right: 0; }
-  .status-strip > div:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.12); }
+  .status-strip > div:nth-child(2),
+  .status-strip > a:nth-child(2) { border-right: 0; }
+  .status-strip > div:nth-child(-n+2),
+  .status-strip > a:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.12); }
   .dashboard-heading { align-items: flex-start; flex-direction: column; gap: 8px; }
   .module-grid { grid-template-columns: 1fr; }
   .module { min-height: 150px; }
