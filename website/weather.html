@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Live weather for Hatteras Island from the National Weather Service." />
+  <title>Weather | Project Lighthouse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="weather.css" />
+</head>
+<body>
+  <div class="weather-shell">
+    <header class="weather-nav">
+      <a class="back-link" href="index.html">← Dashboard</a>
+      <div class="brand-block">
+        <span class="eyebrow">PROJECT LIGHTHOUSE</span>
+        <strong>Weather</strong>
+      </div>
+      <label class="community-picker">
+        <span>Community</span>
+        <select id="communitySelect">
+          <option>Rodanthe</option>
+          <option>Waves</option>
+          <option>Salvo</option>
+          <option>Avon</option>
+          <option selected>Buxton</option>
+          <option>Frisco</option>
+          <option>Hatteras</option>
+        </select>
+      </label>
+    </header>
+
+    <main>
+      <section id="alertBanner" class="alert-banner" hidden></section>
+
+      <section class="hero-card">
+        <div>
+          <p class="eyebrow" id="locationLabel">BUXTON, NC</p>
+          <h1 id="temperature">--°</h1>
+          <p class="condition" id="condition">Loading current conditions…</p>
+          <p class="updated" id="updatedTime">National Weather Service</p>
+        </div>
+        <div class="hero-icon" id="weatherIcon">◌</div>
+        <div class="hero-stats">
+          <div><span>Feels like</span><strong id="feelsLike">--°</strong></div>
+          <div><span>Wind</span><strong id="wind">--</strong></div>
+          <div><span>Humidity</span><strong id="humidity">--</strong></div>
+          <div><span>Rain chance</span><strong id="rainChance">--</strong></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">NEXT 12 HOURS</p><h2>Hourly forecast</h2></div>
+        </div>
+        <div class="hourly-track" id="hourlyForecast"></div>
+      </section>
+
+      <section class="two-column">
+        <section class="panel">
+          <div class="section-heading"><div><p class="eyebrow">ISLAND CONDITIONS</p><h2>Weather details</h2></div></div>
+          <div class="metric-grid">
+            <div class="metric-card"><span>Today's high</span><strong id="todayHigh">--°</strong></div>
+            <div class="metric-card"><span>Tonight's low</span><strong id="tonightLow">--°</strong></div>
+            <div class="metric-card"><span>Visibility</span><strong id="visibility">--</strong></div>
+            <div class="metric-card"><span>Pressure</span><strong id="pressure">--</strong></div>
+          </div>
+        </section>
+
+        <section class="panel marine-panel">
+          <div class="section-heading"><div><p class="eyebrow">MARINE SNAPSHOT</p><h2>Nearshore outlook</h2></div></div>
+          <p id="marineSummary">Loading the coastal forecast summary…</p>
+          <div class="source-note">Forecast guidance comes from the National Weather Service. Marine-specific data sources will be expanded as the project grows.</div>
+        </section>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading"><div><p class="eyebrow">THIS WEEK</p><h2>7-day forecast</h2></div></div>
+        <div class="daily-grid" id="dailyForecast"></div>
+      </section>
+
+      <section class="panel discussion-panel">
+        <div class="section-heading"><div><p class="eyebrow">FORECAST CONTEXT</p><h2>What to expect</h2></div></div>
+        <p id="forecastDiscussion">Loading forecast summary…</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="weather.js"></script>
+</body>
+</html>
