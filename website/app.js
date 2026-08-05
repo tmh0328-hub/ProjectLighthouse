@@ -8,15 +8,6 @@ const moduleData = {
       ["Offshore", "Forecast page planned"]
     ]
   },
-  ferry: {
-    title: "Ferries",
-    cards: [
-      ["Hatteras–Ocracoke", "On schedule"],
-      ["Current wait", "Prototype only"],
-      ["Next departure", "Schedule integration planned"],
-      ["Terminal camera", "Link module planned"]
-    ]
-  },
   beaches: {
     title: "Beaches",
     cards: [
@@ -41,7 +32,8 @@ const pageRoutes = {
   weather: "weather.html",
   tides: "tides.html",
   cameras: "cameras.html",
-  roads: "roads.html"
+  roads: "roads.html",
+  ferry: "ferry.html"
 };
 
 const dialog = document.getElementById("detailDialog");
