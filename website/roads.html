@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NC-12 road conditions and official updates for Hatteras Island." />
+  <title>Roads | Project Lighthouse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="roads.css" />
+</head>
+<body>
+  <main class="roads-shell">
+    <header class="page-header">
+      <a class="back-link" href="index.html">← Dashboard</a>
+      <div>
+        <p class="eyebrow">PROJECT LIGHTHOUSE</p>
+        <h1>NC-12 Roads</h1>
+        <p class="tagline">Official road conditions, closures, construction and island updates.</p>
+      </div>
+    </header>
+
+    <section class="status-card">
+      <div>
+        <p class="eyebrow">CURRENT STATUS</p>
+        <h2>Check official NC-12 conditions</h2>
+        <p>DriveNC is the primary source for active incidents, closures and construction. Facebook is used for NCDOT NC-12 field updates and reopening notices.</p>
+      </div>
+      <div class="status-actions">
+        <a class="primary-button" href="https://www.drivenc.gov/?type=incident" target="_blank" rel="noopener noreferrer">Open DriveNC</a>
+        <a class="secondary-button" href="https://www.facebook.com/NCDOTNC12" target="_blank" rel="noopener noreferrer">Open NCDOT NC-12 Updates</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <span class="icon">🚧</span>
+          <div>
+            <p class="eyebrow">ROAD EVENTS</p>
+            <h2>Closures and incidents</h2>
+          </div>
+        </div>
+        <p>DriveNC publishes active traffic events including roadway, direction, description, lane impacts, severity and closure status.</p>
+        <a class="text-link" href="https://www.drivenc.gov/?type=incident" target="_blank" rel="noopener noreferrer">View active events →</a>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <span class="icon">📣</span>
+          <div>
+            <p class="eyebrow">FIELD UPDATES</p>
+            <h2>NCDOT NC-12</h2>
+          </div>
+        </div>
+        <p>The official NCDOT NC-12 Facebook page posts overwash, sand, flooding, closure and reopening updates from the corridor.</p>
+        <a class="text-link" href="https://www.facebook.com/NCDOTNC12" target="_blank" rel="noopener noreferrer">View latest posts →</a>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <span class="icon">📷</span>
+          <div>
+            <p class="eyebrow">TRAFFIC CAMERAS</p>
+            <h2>Dare County / NC-12</h2>
+          </div>
+        </div>
+        <p>DriveNC camera listings provide official traffic camera locations and status information for Dare County and NC-12.</p>
+        <a class="text-link" href="https://www.drivenc.gov/cctv?start=0&length=10&filters%5B0%5D%5Bi%5D=2&filters%5B0%5D%5Bs%5D=Dare&filters%5B1%5D%5Bi%5D=3&filters%5B1%5D%5Bs%5D=NC-12&order%5Bi%5D=1&order%5Bdir%5D=asc" target="_blank" rel="noopener noreferrer">Open NC-12 cameras →</a>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <span class="icon">❄️</span>
+          <div>
+            <p class="eyebrow">ROAD CONDITIONS</p>
+            <h2>Snow and ice reports</h2>
+          </div>
+        </div>
+        <p>DriveNC also publishes official route-condition reports during winter weather and other hazardous conditions.</p>
+        <a class="text-link" href="https://www.drivenc.gov/" target="_blank" rel="noopener noreferrer">Open road conditions →</a>
+      </article>
+    </section>
+
+    <section class="sources-panel">
+      <div>
+        <p class="eyebrow">DATA SOURCES</p>
+        <h2>Where this information comes from</h2>
+      </div>
+      <div class="source-list">
+        <article>
+          <strong>DriveNC Events</strong>
+          <span>Official NCDOT traffic events, closures, lane impacts and construction.</span>
+          <a href="https://www.drivenc.gov/help/endpoint/event" target="_blank" rel="noopener noreferrer">API documentation</a>
+        </article>
+        <article>
+          <strong>DriveNC Cameras</strong>
+          <span>Official camera IDs, locations, coordinates, status and camera-view links.</span>
+          <a href="https://www.drivenc.gov/help/endpoint/cameras" target="_blank" rel="noopener noreferrer">API documentation</a>
+        </article>
+        <article>
+          <strong>DriveNC Road Conditions</strong>
+          <span>Official route-condition reports, including US and NC routes.</span>
+          <a href="https://www.drivenc.gov/help/endpoint/roadconditions" target="_blank" rel="noopener noreferrer">API documentation</a>
+        </article>
+        <article>
+          <strong>NCDOT NC-12 Facebook</strong>
+          <span>Official NCDOT corridor updates, field observations and reopening notices.</span>
+          <a href="https://www.facebook.com/NCDOTNC12" target="_blank" rel="noopener noreferrer">Official page</a>
+        </article>
+      </div>
+      <p class="source-note">MVP note: Lighthouse links directly to official live sources. Automatic DriveNC data ingestion will require a registered developer key.</p>
+    </section>
+
+    <footer>
+      <span id="checkedTime"></span>
+      <a href="weather.html">Weather</a>
+      <a href="tides.html">Tides</a>
+      <a href="cameras.html">Cameras</a>
+    </footer>
+  </main>
+  <script src="roads.js"></script>
+</body>
+</html>
