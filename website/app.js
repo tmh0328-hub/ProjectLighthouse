@@ -8,15 +8,6 @@ const moduleData = {
       ["Offshore", "Forecast page planned"]
     ]
   },
-  roads: {
-    title: "Roads",
-    cards: [
-      ["NC-12", "Open"],
-      ["Flooding", "None reported"],
-      ["Construction", "No major delays"],
-      ["Official source", "NCDOT link planned"]
-    ]
-  },
   ferry: {
     title: "Ferries",
     cards: [
@@ -49,7 +40,8 @@ const moduleData = {
 const pageRoutes = {
   weather: "weather.html",
   tides: "tides.html",
-  cameras: "cameras.html"
+  cameras: "cameras.html",
+  roads: "roads.html"
 };
 
 const dialog = document.getElementById("detailDialog");
