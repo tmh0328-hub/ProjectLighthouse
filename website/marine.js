@@ -1,4 +1,5 @@
-const MARINE_ZONE_URL = "https://api.weather.gov/zones/forecast/AMZ154/forecast";
+const PRODUCT_LIST_URL = "https://api.weather.gov/products/types/CWF/locations/MHX";
+const ZONE_ID = "AMZ154";
 
 const $ = (id) => document.getElementById(id);
 
@@ -25,17 +26,49 @@ function formatUpdated(value) {
   }).format(new Date(value))}`;
 }
 
-function normalizePeriods(data) {
-  const periods = data?.properties?.periods;
-  return Array.isArray(periods) ? periods : [];
+async function fetchJson(url) {
+  const response = await fetch(url, {
+    headers: { Accept: "application/geo+json, application/json" },
+    cache: "no-store"
+  });
+  if (!response.ok) throw new Error(`NWS request failed (${response.status})`);
+  return response.json();
+}
+
+function cleanText(text = "") {
+  return text
+    .replace(/\r/g, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .replace(/[ \t]+/g, " ")
+    .trim();
+}
+
+function extractZoneSection(productText) {
+  const normalized = productText.replace(/\r/g, "");
+  const start = normalized.indexOf(`${ZONE_ID}-`);
+  if (start === -1) throw new Error(`${ZONE_ID} was not found in the latest coastal waters forecast.`);
+
+  const remainder = normalized.slice(start);
+  const end = remainder.indexOf("$$");
+  return cleanText(end === -1 ? remainder : remainder.slice(0, end));
+}
+
+function parsePeriods(zoneText) {
+  const matches = [...zoneText.matchAll(/^\.([^\n.]+)\.\.\.\s*([\s\S]*?)(?=^\.[^\n.]+\.\.\.|\s*$)/gm)];
+
+  return matches.map((match, index) => ({
+    number: index + 1,
+    name: match[1].trim().replace(/\s+/g, " "),
+    detailedForecast: cleanText(match[2]).replace(/\n/g, " ")
+  })).filter((period) => period.detailedForecast);
 }
 
 function renderPeriod(period) {
-  const detail = period.detailedForecast || period.forecast || "Forecast details unavailable.";
+  const detail = period.detailedForecast;
   return `
     <article class="forecast-card">
       <span>MARINE</span>
-      <h3>${period.name || "Forecast period"}</h3>
+      <h3>${period.name}</h3>
       <div class="mini">
         <strong>${extractWind(detail)}</strong>
         <strong>Seas ${extractSeas(detail)}</strong>
@@ -45,45 +78,42 @@ function renderPeriod(period) {
   `;
 }
 
-async function fetchJson(url) {
-  const response = await fetch(url, {
-    headers: {
-      Accept: "application/geo+json, application/json"
-    },
-    cache: "no-store"
-  });
+async function getLatestMarineProduct() {
+  const listData = await fetchJson(PRODUCT_LIST_URL);
+  const products = Array.isArray(listData?.["@graph"]) ? listData["@graph"] : [];
+  if (!products.length) throw new Error("NWS returned no coastal waters forecast products.");
 
-  if (!response.ok) {
-    throw new Error(`NWS request failed (${response.status})`);
-  }
+  products.sort((a, b) => new Date(b.issuanceTime || 0) - new Date(a.issuanceTime || 0));
+  const latest = products[0];
+  const productId = latest.id || latest["@id"]?.split("/").pop();
+  if (!productId) throw new Error("The latest NWS marine product did not include an ID.");
 
-  return response.json();
+  const product = await fetchJson(`https://api.weather.gov/products/${productId}`);
+  return {
+    text: product.productText || product?.properties?.productText || "",
+    issued: product.issuanceTime || latest.issuanceTime || null
+  };
 }
 
 async function loadMarineForecast() {
   try {
-    const forecastData = await fetchJson(MARINE_ZONE_URL);
-    const periods = normalizePeriods(forecastData);
+    const product = await getLatestMarineProduct();
+    const zoneText = extractZoneSection(product.text);
+    const periods = parsePeriods(zoneText);
 
-    if (!periods.length) {
-      throw new Error("No marine forecast periods were returned.");
-    }
+    if (!periods.length) throw new Error("No forecast periods could be parsed from the NWS marine product.");
 
     const current = periods[0];
-    const detail = current.detailedForecast || current.forecast || "Forecast details unavailable.";
-
-    $("currentName").textContent = current.name || "Current marine forecast";
-    $("currentDetail").textContent = detail;
-    $("currentWind").textContent = extractWind(detail);
-    $("currentSeas").textContent = extractSeas(detail);
-    $("updatedAt").textContent = formatUpdated(
-      forecastData?.properties?.updated || forecastData?.properties?.updateTime
-    );
+    $("currentName").textContent = current.name;
+    $("currentDetail").textContent = current.detailedForecast;
+    $("currentWind").textContent = extractWind(current.detailedForecast);
+    $("currentSeas").textContent = extractSeas(current.detailedForecast);
+    $("updatedAt").textContent = formatUpdated(product.issued);
     $("forecastGrid").innerHTML = periods.slice(1, 10).map(renderPeriod).join("");
   } catch (error) {
     console.error("Marine forecast error:", error);
     $("currentName").textContent = "Marine forecast unavailable";
-    $("currentDetail").textContent = "The National Weather Service marine-zone feed could not be loaded. Use the official forecast link below for current conditions.";
+    $("currentDetail").textContent = "The National Weather Service coastal waters forecast could not be loaded. Use the official forecast link below for current conditions.";
     $("currentWind").textContent = "—";
     $("currentSeas").textContent = "—";
     $("updatedAt").textContent = "Live feed unavailable";
