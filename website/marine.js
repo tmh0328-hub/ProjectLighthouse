@@ -1,4 +1,4 @@
-const POINT_URL = "https://api.weather.gov/points/35.05471,-75.75892";
+const MARINE_ZONE_URL = "https://api.weather.gov/zones/forecast/AMZ154/forecast";
 
 const $ = (id) => document.getElementById(id);
 
@@ -7,60 +7,83 @@ function extractSeas(text = "") {
   return match ? match[1].replace(/\s+/g, " ").trim() : "See details";
 }
 
+function extractWind(text = "") {
+  const match = text.match(/\b([NSEW]{1,3}|VRB)\s+winds?\s+([^.]*(?:kt|knots?))/i);
+  if (!match) return "See details";
+  return `${match[1].toUpperCase()} ${match[2].replace(/\s+/g, " ").trim()}`;
+}
+
 function formatUpdated(value) {
   if (!value) return "Update time unavailable";
   return `Updated ${new Intl.DateTimeFormat("en-US", {
-    month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
-    timeZone: "America/New_York", timeZoneName: "short"
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/New_York",
+    timeZoneName: "short"
   }).format(new Date(value))}`;
 }
 
+function normalizePeriods(data) {
+  const periods = data?.properties?.periods;
+  return Array.isArray(periods) ? periods : [];
+}
+
 function renderPeriod(period) {
-  const seas = extractSeas(period.detailedForecast);
+  const detail = period.detailedForecast || period.forecast || "Forecast details unavailable.";
   return `
     <article class="forecast-card">
-      <span>${period.isDaytime ? "DAY" : "NIGHT"}</span>
-      <h3>${period.name}</h3>
+      <span>MARINE</span>
+      <h3>${period.name || "Forecast period"}</h3>
       <div class="mini">
-        <strong>${period.windDirection || "Wind"} ${period.windSpeed || "—"}</strong>
-        <strong>Seas ${seas}</strong>
+        <strong>${extractWind(detail)}</strong>
+        <strong>Seas ${extractSeas(detail)}</strong>
       </div>
-      <p>${period.detailedForecast}</p>
+      <p>${detail}</p>
     </article>
   `;
 }
 
+async function fetchJson(url) {
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application/geo+json, application/json"
+    },
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`NWS request failed (${response.status})`);
+  }
+
+  return response.json();
+}
+
 async function loadMarineForecast() {
   try {
-    const pointResponse = await fetch(POINT_URL, {
-      headers: { Accept: "application/geo+json" }
-    });
-    if (!pointResponse.ok) throw new Error(`Point lookup failed (${pointResponse.status})`);
+    const forecastData = await fetchJson(MARINE_ZONE_URL);
+    const periods = normalizePeriods(forecastData);
 
-    const pointData = await pointResponse.json();
-    const forecastUrl = pointData?.properties?.forecast;
-    if (!forecastUrl) throw new Error("NWS did not return a forecast endpoint for this point.");
-
-    const forecastResponse = await fetch(forecastUrl, {
-      headers: { Accept: "application/geo+json" }
-    });
-    if (!forecastResponse.ok) throw new Error(`Forecast request failed (${forecastResponse.status})`);
-
-    const forecastData = await forecastResponse.json();
-    const periods = forecastData?.properties?.periods || [];
-    if (!periods.length) throw new Error("No forecast periods were returned.");
+    if (!periods.length) {
+      throw new Error("No marine forecast periods were returned.");
+    }
 
     const current = periods[0];
-    $("currentName").textContent = current.name;
-    $("currentDetail").textContent = current.detailedForecast;
-    $("currentWind").textContent = `${current.windDirection || ""} ${current.windSpeed || "—"}`.trim();
-    $("currentSeas").textContent = extractSeas(current.detailedForecast);
-    $("updatedAt").textContent = formatUpdated(forecastData.properties.updated);
+    const detail = current.detailedForecast || current.forecast || "Forecast details unavailable.";
+
+    $("currentName").textContent = current.name || "Current marine forecast";
+    $("currentDetail").textContent = detail;
+    $("currentWind").textContent = extractWind(detail);
+    $("currentSeas").textContent = extractSeas(detail);
+    $("updatedAt").textContent = formatUpdated(
+      forecastData?.properties?.updated || forecastData?.properties?.updateTime
+    );
     $("forecastGrid").innerHTML = periods.slice(1, 10).map(renderPeriod).join("");
   } catch (error) {
-    console.error(error);
+    console.error("Marine forecast error:", error);
     $("currentName").textContent = "Marine forecast unavailable";
-    $("currentDetail").textContent = "The National Weather Service feed could not be loaded. Use the official forecast link below for current conditions.";
+    $("currentDetail").textContent = "The National Weather Service marine-zone feed could not be loaded. Use the official forecast link below for current conditions.";
     $("currentWind").textContent = "—";
     $("currentSeas").textContent = "—";
     $("updatedAt").textContent = "Live feed unavailable";
