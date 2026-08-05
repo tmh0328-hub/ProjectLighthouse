@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Project Lighthouse camera directory for Hatteras Island." />
+  <title>Cameras | Project Lighthouse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cameras.css" />
+</head>
+<body>
+  <div class="camera-shell">
+    <header class="page-header">
+      <a class="back-link" href="index.html">← Dashboard</a>
+      <div>
+        <p class="eyebrow">PROJECT LIGHTHOUSE</p>
+        <h1>Island Cameras</h1>
+        <p class="tagline">See what the island looks like right now.</p>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="Camera controls">
+      <div class="view-tabs" role="tablist" aria-label="Camera views">
+        <button class="view-tab active" data-view="village" role="tab" aria-selected="true">Village</button>
+        <button class="view-tab" data-view="topic" role="tab" aria-selected="false">Topic</button>
+        <button class="view-tab" data-view="map" role="tab" aria-selected="false">Map</button>
+      </div>
+
+      <label class="search-box">
+        <span>Search cameras</span>
+        <input id="cameraSearch" type="search" placeholder="Buxton, ferry, surf..." />
+      </label>
+    </section>
+
+    <main>
+      <section class="summary-strip" aria-label="Camera library summary">
+        <article><span>Camera records</span><strong id="cameraCount">0</strong></article>
+        <article><span>Villages covered</span><strong id="villageCount">0</strong></article>
+        <article><span>Live feeds</span><strong id="liveCount">0</strong></article>
+        <article><span>Snapshots</span><strong id="snapshotCount">0</strong></article>
+      </section>
+
+      <section id="cameraView" class="camera-view" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <dialog id="cameraDialog">
+    <div class="dialog-head">
+      <div>
+        <p class="eyebrow" id="dialogCategory">CAMERA</p>
+        <h2 id="dialogTitle">Camera title</h2>
+      </div>
+      <button id="closeDialog" class="close-button" aria-label="Close">×</button>
+    </div>
+    <div id="dialogBody" class="dialog-body"></div>
+  </dialog>
+
+  <script src="cameras.js"></script>
+</body>
+</html>
