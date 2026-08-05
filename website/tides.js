@@ -1,232 +1,27 @@
-const STATION_ID = "TEC2791";
-const TIME_ZONE = "America/New_York";
-
-const fallbackPredictions = [
-  { t: "2026-08-05 00:19", v: "1.9", type: "H" },
-  { t: "2026-08-05 06:36", v: "0.0", type: "L" },
-  { t: "2026-08-05 13:07", v: "2.2", type: "H" },
-  { t: "2026-08-05 19:33", v: "0.4", type: "L" },
-  { t: "2026-08-06 01:13", v: "1.7", type: "H" },
-  { t: "2026-08-06 07:27", v: "0.0", type: "L" },
-  { t: "2026-08-06 14:07", v: "2.3", type: "H" },
-  { t: "2026-08-06 20:42", v: "0.5", type: "L" },
-  { t: "2026-08-07 02:14", v: "1.6", type: "H" },
-  { t: "2026-08-07 08:26", v: "0.0", type: "L" },
-  { t: "2026-08-07 15:13", v: "2.4", type: "H" },
-  { t: "2026-08-07 21:54", v: "0.4", type: "L" }
-];
-
-const $ = (id) => document.getElementById(id);
-
-function localDateParts(date = new Date()) {
-  const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: TIME_ZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-  }).formatToParts(date);
-  return Object.fromEntries(parts.map((part) => [part.type, part.value]));
-}
-
-function ymd(date = new Date()) {
-  const p = localDateParts(date);
-  return `${p.year}${p.month}${p.day}`;
-}
-
-function addDays(date, days) {
-  const copy = new Date(date);
-  copy.setDate(copy.getDate() + days);
-  return copy;
-}
-
-function parseNoaaTime(value) {
-  const [datePart, timePart] = value.split(" ");
-  const [year, month, day] = datePart.split("-").map(Number);
-  const [hour, minute] = timePart.split(":").map(Number);
-  const localGuess = new Date(year, month - 1, day, hour, minute);
-  return localGuess;
-}
-
-function formatClock(date) {
-  return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
-}
-
-function formatDate(date, options = {}) {
-  return new Intl.DateTimeFormat("en-US", { timeZone: TIME_ZONE, ...options }).format(date);
-}
-
-function eventLabel(event) {
-  return event.type === "H" ? "High tide" : "Low tide";
-}
-
-function normalize(predictions) {
-  return predictions.map((prediction) => ({
-    ...prediction,
-    date: parseNoaaTime(prediction.t),
-    height: Number(prediction.v)
-  })).sort((a, b) => a.date - b.date);
-}
-
-async function fetchPredictions() {
-  const now = new Date();
-  const begin = ymd(addDays(now, -1));
-  const end = ymd(addDays(now, 7));
-  const params = new URLSearchParams({
-    product: "predictions",
-    application: "ProjectLighthouse",
-    begin_date: begin,
-    end_date: end,
-    datum: "MLLW",
-    station: STATION_ID,
-    time_zone: "lst_ldt",
-    units: "english",
-    interval: "hilo",
-    format: "json"
-  });
-
-  const response = await fetch(`https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?${params}`);
-  if (!response.ok) throw new Error(`NOAA request failed (${response.status})`);
-  const data = await response.json();
-  if (!data.predictions?.length) throw new Error(data.error?.message || "No predictions returned");
-  return normalize(data.predictions);
-}
-
-function getTodayEvents(events) {
-  const today = formatDate(new Date(), { year: "numeric", month: "2-digit", day: "2-digit" });
-  return events.filter((event) => formatDate(event.date, { year: "numeric", month: "2-digit", day: "2-digit" }) === today);
-}
-
-function renderHero(events) {
-  const now = new Date();
-  const upcoming = events.filter((event) => event.date > now);
-  const next = upcoming[0];
-  const following = upcoming[1];
-  if (!next) throw new Error("No future tide found");
-
-  $("nextTideIcon").textContent = next.type === "H" ? "↑" : "↓";
-  $("nextTideType").textContent = eventLabel(next);
-  $("nextTideTime").textContent = `${formatClock(next.date)} · ${formatDate(next.date, { weekday: "long", month: "short", day: "numeric" })}`;
-  $("nextTideHeight").textContent = `${next.height.toFixed(1)} ft`;
-  $("tideTrend").textContent = next.type === "H" ? "Rising" : "Falling";
-  $("followingTide").textContent = following ? `${following.type === "H" ? "High" : "Low"} ${formatClock(following.date)}` : "—";
-  $("guidanceTitle").textContent = next.type === "H" ? "Water is rising" : "Water is falling";
-  $("guidanceText").textContent = next.type === "H"
-    ? "The tide is building toward high water. Beach width will continue shrinking, inlet current will strengthen, and the better surf-fishing window often develops through the final hours of the rise."
-    : "The tide is draining toward low water. Expect more exposed beach and bars, stronger outgoing current near the inlet, and generally easier access along the shoreline.";
-
-  const updateCountdown = () => {
-    const diff = next.date - new Date();
-    if (diff <= 0) return renderHero(events);
-    const hours = Math.floor(diff / 3600000);
-    const minutes = Math.floor((diff % 3600000) / 60000);
-    $("countdown").textContent = `${hours} hr ${minutes} min away`;
-  };
-  updateCountdown();
-  setInterval(updateCountdown, 60000);
-}
-
-function renderToday(events) {
-  const todayEvents = getTodayEvents(events);
-  $("todayDate").textContent = formatDate(new Date(), { weekday: "long", month: "long", day: "numeric" });
-  $("todayEvents").innerHTML = todayEvents.map((event) => `
-    <article class="event-card">
-      <span>${eventLabel(event)}</span>
-      <strong>${formatClock(event.date)}</strong>
-      <small>${event.height.toFixed(1)} ft</small>
-    </article>
-  `).join("");
-  drawCurve(todayEvents);
-}
-
-function drawCurve(events) {
-  const svg = $("tideCurve");
-  if (events.length < 2) {
-    svg.innerHTML = "";
-    return;
-  }
-  const width = 900;
-  const height = 260;
-  const padX = 52;
-  const padY = 35;
-  const values = events.map((event) => event.height);
-  const min = Math.min(...values) - .25;
-  const max = Math.max(...values) + .25;
-  const points = events.map((event, index) => {
-    const x = padX + (index / (events.length - 1)) * (width - padX * 2);
-    const y = height - padY - ((event.height - min) / (max - min)) * (height - padY * 2);
-    return { x, y, event };
-  });
-  const path = points.map((point, index) => `${index ? "L" : "M"} ${point.x} ${point.y}`).join(" ");
-  svg.innerHTML = `
-    <defs>
-      <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#5ab7ce" stop-opacity=".42" />
-        <stop offset="100%" stop-color="#5ab7ce" stop-opacity=".04" />
-      </linearGradient>
-    </defs>
-    <line x1="${padX}" y1="${height - padY}" x2="${width - padX}" y2="${height - padY}" stroke="#cbdde3" />
-    <path d="${path} L ${points.at(-1).x} ${height - padY} L ${points[0].x} ${height - padY} Z" fill="url(#fill)" />
-    <path d="${path}" fill="none" stroke="#13759a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-    ${points.map((point) => `
-      <circle cx="${point.x}" cy="${point.y}" r="8" fill="#fff" stroke="#0b2a3d" stroke-width="4" />
-      <text x="${point.x}" y="${point.y - 18}" text-anchor="middle" font-family="Inter" font-size="14" font-weight="800" fill="#10212c">${point.event.height.toFixed(1)} ft</text>
-      <text x="${point.x}" y="${height - 10}" text-anchor="middle" font-family="Inter" font-size="13" fill="#657681">${formatClock(point.event.date)}</text>
-    `).join("")}
-  `;
-}
-
-function renderUpcoming(events) {
-  const now = new Date();
-  const upcoming = events.filter((event) => event.date > now).slice(0, 8);
-  $("upcomingList").innerHTML = upcoming.map((event) => `
-    <article class="upcoming-row">
-      <time>${formatDate(event.date, { weekday: "short", month: "short", day: "numeric" })}</time>
-      <strong>${event.type === "H" ? "↑ High tide" : "↓ Low tide"} · ${formatClock(event.date)}</strong>
-      <span>${event.height.toFixed(1)} ft</span>
-    </article>
-  `).join("");
-}
-
-function renderWeek(events) {
-  const grouped = new Map();
-  events.forEach((event) => {
-    const key = formatDate(event.date, { year: "numeric", month: "2-digit", day: "2-digit" });
-    if (!grouped.has(key)) grouped.set(key, []);
-    grouped.get(key).push(event);
-  });
-  const days = [...grouped.values()].filter((group) => group[0].date >= new Date(Date.now() - 86400000)).slice(0, 7);
-  $("weekTable").innerHTML = days.map((group) => {
-    const date = group[0].date;
-    return `
-      <article class="day-column">
-        <h3>${formatDate(date, { weekday: "long" })}</h3>
-        <span>${formatDate(date, { month: "short", day: "numeric" })}</span>
-        ${group.map((event) => `
-          <div class="day-event">
-            <span>${event.type === "H" ? "High" : "Low"} ${formatClock(event.date)}</span>
-            <strong>${event.height.toFixed(1)}′</strong>
-          </div>
-        `).join("")}
-      </article>
-    `;
-  }).join("");
-}
-
-async function init() {
-  let events;
-  try {
-    events = await fetchPredictions();
-    $("updatedLabel").textContent = "Live NOAA predictions · local Hatteras time (EST/EDT automatically)";
-  } catch (error) {
-    console.error(error);
-    events = normalize(fallbackPredictions);
-    $("updatedLabel").textContent = "NOAA annual-table fallback · local Hatteras time";
-    $("updatedLabel").classList.add("error-text");
-  }
-  renderHero(events);
-  renderToday(events);
-  renderUpcoming(events);
-  renderWeek(events);
-}
-
+const STATION_ID="TEC2791",TIME_ZONE="America/New_York",LAT=35.2,LON=-75.7333;
+const fallbackPredictions=[{t:"2026-08-05 00:19",v:"1.9",type:"H"},{t:"2026-08-05 06:36",v:"0.0",type:"L"},{t:"2026-08-05 13:07",v:"2.2",type:"H"},{t:"2026-08-05 19:33",v:"0.4",type:"L"},{t:"2026-08-06 01:13",v:"1.7",type:"H"},{t:"2026-08-06 07:27",v:"0.0",type:"L"},{t:"2026-08-06 14:07",v:"2.3",type:"H"},{t:"2026-08-06 20:42",v:"0.5",type:"L"},{t:"2026-08-07 02:14",v:"1.6",type:"H"},{t:"2026-08-07 08:26",v:"0.0",type:"L"},{t:"2026-08-07 15:13",v:"2.4",type:"H"},{t:"2026-08-07 21:54",v:"0.4",type:"L"}];
+const $=id=>document.getElementById(id);
+function localDateParts(date=new Date()){return Object.fromEntries(new Intl.DateTimeFormat("en-US",{timeZone:TIME_ZONE,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(date).map(p=>[p.type,p.value]))}
+function ymd(date=new Date()){const p=localDateParts(date);return `${p.year}${p.month}${p.day}`}
+function addDays(date,days){const d=new Date(date);d.setDate(d.getDate()+days);return d}
+function parseNoaaTime(value){const [d,t]=value.split(" "),[y,m,day]=d.split("-").map(Number),[h,min]=t.split(":").map(Number);return new Date(y,m-1,day,h,min)}
+function formatClock(date){return date.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"})}
+function formatDate(date,options={}){return new Intl.DateTimeFormat("en-US",{timeZone:TIME_ZONE,...options}).format(date)}
+function eventLabel(e){return e.type==="H"?"High tide":"Low tide"}
+function normalize(rows){return rows.map(p=>({...p,date:parseNoaaTime(p.t),height:Number(p.v)})).sort((a,b)=>a.date-b.date)}
+async function fetchPredictions(){const now=new Date(),params=new URLSearchParams({product:"predictions",application:"ProjectLighthouse",begin_date:ymd(addDays(now,-1)),end_date:ymd(addDays(now,7)),datum:"MLLW",station:STATION_ID,time_zone:"lst_ldt",units:"english",interval:"hilo",format:"json"});const r=await fetch(`https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?${params}`);if(!r.ok)throw new Error(`NOAA request failed (${r.status})`);const data=await r.json();if(!data.predictions?.length)throw new Error(data.error?.message||"No predictions returned");return normalize(data.predictions)}
+function dayKey(date){return formatDate(date,{year:"numeric",month:"2-digit",day:"2-digit"})}
+function getTodayEvents(events){const k=dayKey(new Date());return events.filter(e=>dayKey(e.date)===k)}
+function getBracketing(events,now=new Date()){const nextIndex=events.findIndex(e=>e.date>now);return {previous:events[nextIndex-1],next:events[nextIndex],following:events[nextIndex+1]}}
+function tideProgress(previous,next,now=new Date()){if(!previous||!next)return 0;return Math.max(0,Math.min(1,(now-previous.date)/(next.date-previous.date)))}
+function moonInfo(date=new Date()){const cycle=29.53058867,known=new Date("2000-01-06T18:14:00Z"),age=((date-known)/86400000%cycle+cycle)%cycle,illum=Math.round((1-Math.cos(2*Math.PI*age/cycle))/2*100);let phase="New Moon";if(age<1.85)phase="New Moon";else if(age<5.54)phase="Waxing Crescent";else if(age<9.23)phase="First Quarter";else if(age<12.92)phase="Waxing Gibbous";else if(age<16.61)phase="Full Moon";else if(age<20.30)phase="Waning Gibbous";else if(age<23.99)phase="Last Quarter";else if(age<27.68)phase="Waning Crescent";return {phase,illum}}
+function solarTimes(date=new Date()){const start=new Date(date.getFullYear(),0,0),n=Math.floor((date-start)/86400000),lngHour=LON/15;function calc(rise){const t=n+((rise?6:18)-lngHour)/24,M=.9856*t-3.289,L=(M+1.916*Math.sin(M*Math.PI/180)+.020*Math.sin(2*M*Math.PI/180)+282.634+360)%360,RA=((Math.atan(.91764*Math.tan(L*Math.PI/180))*180/Math.PI)+360)%360,RAh=(RA+(Math.floor(L/90)*90-Math.floor(RA/90)*90))/15,sinDec=.39782*Math.sin(L*Math.PI/180),cosDec=Math.cos(Math.asin(sinDec)),cosH=(Math.cos(90.833*Math.PI/180)-sinDec*Math.sin(LAT*Math.PI/180))/(cosDec*Math.cos(LAT*Math.PI/180));if(cosH>1||cosH< -1)return null;const H=(rise?360-Math.acos(cosH)*180/Math.PI:Math.acos(cosH)*180/Math.PI)/15,T=H+RAh-.06571*t-6.622,UT=(T-lngHour+24)%24;const d=new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate(),0,0));d.setUTCMinutes(UT*60);return d}return {sunrise:calc(true),sunset:calc(false)}}
+function renderHero(events){const now=new Date(),{previous,next,following}=getBracketing(events,now);if(!next)throw new Error("No future tide found");const rising=next.type==="H",progress=tideProgress(previous,next,now),pct=Math.round(progress*100);$("nextTideIcon").textContent=rising?"↑":"↓";$("tideTrend").textContent=rising?"Incoming":"Outgoing";$("nextTideTime").textContent=`Toward ${eventLabel(next)} · ${formatClock(next.date)}`;$("nextTideType").textContent=`${next.type==="H"?"High":"Low"} ${formatClock(next.date)}`;$("nextTideHeight").textContent=`${next.height.toFixed(1)} ft`;$("followingTide").textContent=following?`${following.type==="H"?"High":"Low"} ${formatClock(following.date)}`:"—";$("progressLabel").textContent=`${pct}% through ${rising?"incoming":"outgoing"} tide`;$("progressPercent").textContent=`${pct}%`;$("progressBar").style.width=`${pct}%`;$("guidanceTitle").textContent=rising?"Water is rising":"Water is falling";$("guidanceText").textContent=rising?"Beach width will continue shrinking and inlet current will build. The final two hours before high water are often the most useful surf-fishing window.":"More beach and bars will become exposed while outgoing current strengthens near the inlet. Use extra caution around cuts and channels.";$("actionTitle").textContent=rising?"Incoming tide":"Outgoing tide";$("actionText").textContent=rising?`High water at ${formatClock(next.date)}. Strongest movement builds as the tide approaches the top.`:`Low water at ${formatClock(next.date)}. Expect current to keep draining until the turn.`;const diff=next.date-now,h=Math.max(0,Math.floor(diff/3600000)),m=Math.max(0,Math.floor((diff%3600000)/60000));$("countdown").textContent=`${h} hr ${m} min remaining`;const bestStart=new Date(next.date-2*3600000),bestEnd=new Date(next.date+3600000);$("fishingWindow").textContent=`${formatClock(bestStart)}–${formatClock(bestEnd)}`;$("fishingReason").textContent=`Around ${eventLabel(next).toLowerCase()}`}
+function renderAstronomy(){const moon=moonInfo(),sun=solarTimes();$("moonPhase").textContent=moon.phase;$("moonIllumination").textContent=`${moon.illum}% illuminated`;$("sunrise").textContent=sun.sunrise?formatClock(sun.sunrise):"—";$("sunset").textContent=sun.sunset?formatClock(sun.sunset):"—"}
+function renderToday(events){const todayEvents=getTodayEvents(events);$("todayDate").textContent=formatDate(new Date(),{weekday:"long",month:"long",day:"numeric"});$("todayEvents").innerHTML=todayEvents.map(e=>`<article class="event-card"><span>${eventLabel(e)}</span><strong>${formatClock(e.date)}</strong><small>${e.height.toFixed(1)} ft</small></article>`).join("");drawCurve(events)}
+function estimatedHeight(previous,next,now){const p=tideProgress(previous,next,now),eased=(1-Math.cos(Math.PI*p))/2;return previous.height+(next.height-previous.height)*eased}
+function drawCurve(events){const svg=$("tideCurve"),today=getTodayEvents(events),now=new Date(),{previous,next}=getBracketing(events,now);if(today.length<2){svg.innerHTML="";return}const width=900,height=280,padX=52,padY=42,values=today.map(e=>e.height),min=Math.min(...values)-.25,max=Math.max(...values)+.25,start=new Date(now);start.setHours(0,0,0,0);const end=new Date(start);end.setDate(end.getDate()+1);const xFor=d=>padX+((d-start)/(end-start))*(width-padX*2),yFor=v=>height-padY-((v-min)/(max-min))*(height-padY*2);const samples=[];for(let i=0;i<today.length-1;i++){const a=today[i],b=today[i+1];for(let s=0;s<=20;s++){const p=s/20,t=new Date(a.date.getTime()+(b.date-a.date)*p),v=a.height+(b.height-a.height)*(1-Math.cos(Math.PI*p))/2;samples.push({x:xFor(t),y:yFor(v)})}}const path=samples.map((p,i)=>`${i?"L":"M"} ${p.x} ${p.y}`).join(" ");let current="";if(previous&&next&&now>=start&&now<=end){const ch=estimatedHeight(previous,next,now),cx=xFor(now),cy=yFor(ch);current=`<line x1="${cx}" y1="25" x2="${cx}" y2="${height-padY}" stroke="#ef8b45" stroke-width="2" stroke-dasharray="7 7"/><circle cx="${cx}" cy="${cy}" r="10" fill="#ef8b45" stroke="#fff" stroke-width="4"/><text x="${cx}" y="18" text-anchor="middle" font-family="Inter" font-size="13" font-weight="800" fill="#9a4f1f">NOW · ${ch.toFixed(1)} ft</text>`}svg.innerHTML=`<defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5ab7ce" stop-opacity=".42"/><stop offset="100%" stop-color="#5ab7ce" stop-opacity=".04"/></linearGradient></defs><line x1="${padX}" y1="${height-padY}" x2="${width-padX}" y2="${height-padY}" stroke="#cbdde3"/><path d="${path} L ${samples.at(-1).x} ${height-padY} L ${samples[0].x} ${height-padY} Z" fill="url(#fill)"/><path d="${path}" fill="none" stroke="#13759a" stroke-width="6" stroke-linecap="round"/>${today.map(e=>`<circle cx="${xFor(e.date)}" cy="${yFor(e.height)}" r="7" fill="#fff" stroke="#0b2a3d" stroke-width="4"/><text x="${xFor(e.date)}" y="${yFor(e.height)-16}" text-anchor="middle" font-family="Inter" font-size="13" font-weight="800" fill="#10212c">${e.height.toFixed(1)} ft</text><text x="${xFor(e.date)}" y="${height-12}" text-anchor="middle" font-family="Inter" font-size="12" fill="#657681">${formatClock(e.date)}</text>`).join("")}${current}`}
+function renderUpcoming(events){const upcoming=events.filter(e=>e.date>new Date()).slice(0,8);$("upcomingList").innerHTML=upcoming.map(e=>`<article class="upcoming-row"><time>${formatDate(e.date,{weekday:"short",month:"short",day:"numeric"})}</time><strong>${e.type==="H"?"↑ High tide":"↓ Low tide"} · ${formatClock(e.date)}</strong><span>${e.height.toFixed(1)} ft</span></article>`).join("")}
+function renderWeek(events){const grouped=new Map();events.forEach(e=>{const k=dayKey(e.date);if(!grouped.has(k))grouped.set(k,[]);grouped.get(k).push(e)});const days=[...grouped.values()].filter(g=>g[0].date>=new Date(Date.now()-86400000)).slice(0,7);$("weekTable").innerHTML=days.map(g=>`<article class="day-column"><h3>${formatDate(g[0].date,{weekday:"long"})}</h3><span>${formatDate(g[0].date,{month:"short",day:"numeric"})}</span>${g.map(e=>`<div class="day-event"><span>${e.type==="H"?"High":"Low"} ${formatClock(e.date)}</span><strong>${e.height.toFixed(1)}′</strong></div>`).join("")}</article>`).join("")}
+async function init(){let events;try{events=await fetchPredictions();$("updatedLabel").textContent="Live NOAA predictions · local Hatteras time (EST/EDT automatically)"}catch(error){console.error(error);events=normalize(fallbackPredictions);$("updatedLabel").textContent="NOAA annual-table fallback · local Hatteras time";$("updatedLabel").classList.add("error-text")}renderHero(events);renderAstronomy();renderToday(events);renderUpcoming(events);renderWeek(events);setInterval(()=>{renderHero(events);renderToday(events)},60000)}
 init();
