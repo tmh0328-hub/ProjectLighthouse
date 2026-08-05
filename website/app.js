@@ -33,7 +33,8 @@ const pageRoutes = {
   tides: "tides.html",
   cameras: "cameras.html",
   roads: "roads.html",
-  ferry: "ferry.html"
+  ferry: "ferry.html",
+  alerts: "alerts.html"
 };
 
 const dialog = document.getElementById("detailDialog");
