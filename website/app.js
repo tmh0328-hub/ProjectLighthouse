@@ -1,13 +1,4 @@
 const moduleData = {
-  fishing: {
-    title: "Fishing",
-    cards: [
-      ["Overall", "Good"],
-      ["Surf", "Incoming tide · SW wind"],
-      ["Nearshore", "Manageable seas"],
-      ["Offshore", "Forecast page planned"]
-    ]
-  },
   beaches: {
     title: "Beaches",
     cards: [
@@ -31,6 +22,7 @@ const moduleData = {
 const pageRoutes = {
   weather: "weather.html",
   tides: "tides.html",
+  marine: "marine.html",
   cameras: "cameras.html",
   roads: "roads.html",
   ferry: "ferry.html",
