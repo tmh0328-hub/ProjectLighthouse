@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 850" role="img" aria-labelledby="title desc">
+<title id="title">Hatteras Island map</title><desc id="desc">Stylized map of Hatteras Island with village labels.</desc>
+<rect width="520" height="850" fill="#f7fbfc"/>
+<defs><linearGradient id="land" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9ece4"/><stop offset="1" stop-color="#68cfc3"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0b2a3d" flood-opacity=".14"/></filter></defs>
+<path filter="url(#shadow)" fill="url(#land)" stroke="#16a99d" stroke-width="3" d="M365 25 C378 50 371 88 384 118 C393 151 377 186 387 219 C394 249 379 282 384 316 C389 355 378 391 374 430 C369 476 361 516 354 558 C347 602 340 646 326 681 C302 710 265 729 223 744 C177 761 130 789 73 824 L49 835 C72 802 105 779 144 760 C188 739 229 725 270 704 C303 686 321 661 328 624 C336 579 339 533 346 488 C352 446 359 405 357 363 C355 322 365 286 359 248 C354 208 367 174 357 137 C349 97 356 62 345 34 Z"/>
+<path fill="none" stroke="#efffff" stroke-width="5" d="M368 37 C374 108 372 170 372 233 C371 324 361 414 351 497 C342 581 337 645 314 682 C278 720 219 739 160 766"/>
+<g fill="#9b7542" font-family="Georgia,serif" font-size="17"><text x="397" y="126">RODANTHE</text><text x="399" y="176">WAVES</text><text x="399" y="223">SALVO</text><text x="381" y="445">AVON</text><text x="267" y="663">BUXTON</text><text x="199" y="773">FRISCO</text><text x="24" y="813">HATTERAS</text></g>
+</svg>
