@@ -1,4 +1,3 @@
-
 const moduleData = {
   weather: {
     title: "Weather",
@@ -83,6 +82,12 @@ const dashboardTitle = document.getElementById("dashboardTitle");
 
 document.querySelectorAll(".module").forEach((button) => {
   button.addEventListener("click", () => {
+    if (button.dataset.module === "weather") {
+      const community = encodeURIComponent(communitySelect.value);
+      window.location.href = `weather.html?community=${community}`;
+      return;
+    }
+
     const data = moduleData[button.dataset.module];
     detailTitle.textContent = data.title;
     detailBody.innerHTML = `
@@ -95,7 +100,7 @@ document.querySelectorAll(".module").forEach((button) => {
         `).join("")}
       </div>
       <div class="prototype-note">
-        This is a clickable layout prototype. Live data and official source links come later.
+        This module is still in development.
       </div>
     `;
     dialog.showModal();
