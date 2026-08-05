@@ -1,22 +1,4 @@
 const moduleData = {
-  weather: {
-    title: "Weather",
-    cards: [
-      ["Current conditions", "81°F · Partly cloudy"],
-      ["Wind", "SW 14 mph · gusts 21"],
-      ["Rain chance", "30% through evening"],
-      ["Marine outlook", "Nearshore 2–3 ft"]
-    ]
-  },
-  tides: {
-    title: "Tides",
-    cards: [
-      ["Next high", "7:18 PM"],
-      ["Next low", "1:42 AM"],
-      ["Current trend", "Rising"],
-      ["Moon", "73% illuminated"]
-    ]
-  },
   fishing: {
     title: "Fishing",
     cards: [
@@ -24,15 +6,6 @@ const moduleData = {
       ["Surf", "Incoming tide · SW wind"],
       ["Nearshore", "Manageable seas"],
       ["Offshore", "Forecast page planned"]
-    ]
-  },
-  cameras: {
-    title: "Cameras",
-    cards: [
-      ["Road cameras", "NCDOT links"],
-      ["Beach cameras", "Pier and surf links"],
-      ["Ferry cameras", "Terminal links"],
-      ["Map view", "Camera map"]
     ]
   },
   roads: {
@@ -73,6 +46,12 @@ const moduleData = {
   }
 };
 
+const pageRoutes = {
+  weather: "weather.html",
+  tides: "tides.html",
+  cameras: "cameras.html"
+};
+
 const dialog = document.getElementById("detailDialog");
 const detailTitle = document.getElementById("detailTitle");
 const detailBody = document.getElementById("detailBody");
@@ -82,12 +61,18 @@ const dashboardTitle = document.getElementById("dashboardTitle");
 
 document.querySelectorAll(".module").forEach((button) => {
   button.addEventListener("click", () => {
-    if (button.dataset.module === "cameras") {
-      window.location.href = "cameras.html";
+    const moduleName = button.dataset.module;
+
+    if (pageRoutes[moduleName]) {
+      const community = communitySelect?.value || "Buxton";
+      const query = moduleName === "weather" ? `?community=${encodeURIComponent(community)}` : "";
+      window.location.href = `${pageRoutes[moduleName]}${query}`;
       return;
     }
 
-    const data = moduleData[button.dataset.module];
+    const data = moduleData[moduleName];
+    if (!data) return;
+
     detailTitle.textContent = data.title;
     detailBody.innerHTML = `
       <div class="detail-grid">
