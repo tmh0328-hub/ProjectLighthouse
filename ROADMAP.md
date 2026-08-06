@@ -1,344 +1,234 @@
 # Project Lighthouse Roadmap
 
-> **Mission**
->
-> **Let the light guide you.**
->
-> Project Lighthouse is a dashboard, a guiding light, and a one-stop shop for Hatteras Island. Every module exists to answer a question and help the user make better decisions. We are not building another weather website. We are building the operating system for Hatteras Island.
+> **Mission:** Let the light guide you.
 
----
+Project Lighthouse is a one-stop Hatteras Island dashboard. It should help residents and visitors understand weather, water, roads, ferries, cameras, marine conditions, and urgent alerts without searching across a collection of agency websites designed during unrelated geological eras.
 
-# Current Project Status
+## Product Vision
 
-**Overall Progress:** ~18%
+A Hatteras Island resident should be able to open Lighthouse and understand the island's most important conditions in under 30 seconds.
 
-The percentage is intentionally conservative.
+## Current Status
 
-Today was a turning point. The goal is no longer to build pages. The goal is to build a complete ecosystem that residents and visitors instinctively open every morning.
+**Phase:** Core MVP functional; integration and refinement underway.
 
----
+The project has moved beyond a shell. The dashboard and seven deeper modules now function, with a combination of live authoritative APIs and curated official datasets.
 
-# Phase 0 — Foundation ✅ COMPLETE
+## Phase 0: Foundation ✅ Complete
 
-## Vision
-
-- [x] Mission established
-- [x] Project codename adopted
-- [x] "Let the light guide you." adopted
-- [x] Dashboard-first philosophy established
-- [x] Module architecture established
-
-## Development Environment
-
-- [x] VS Code configured
-- [x] Git initialized
-- [x] GitHub repository created
-- [x] GitHub connected to ChatGPT
-- [x] Branch workflow established
+- [x] Mission and product philosophy established
+- [x] Dashboard-first architecture established
 - [x] Local development environment working
-
-**Status:** Complete
-
----
-
-# Phase 1 — Core Modules (Current Sprint)
-
-## Goal
-
-Build every core module before investing heavily in visual polish.
-
-Function first.
-
-Experience second.
-
-Perfection last.
-
----
-
-# Dashboard
-
-**Status:** 70%
-
-The dashboard is the heart of Lighthouse.
-
-It should answer eight questions in one glance.
-
-## Core Modules
-
-- ☀ Weather
-- 🌊 Tides
-- 🎣 Fishing
-- 📷 Cameras
-- 🗺 Maps
-- ⛴ Ferry
-- 🚧 Road Conditions
-- ⚠ Alerts
-
-### Dashboard Philosophy
-
-One glance.
-
-Eight answers.
-
-Every module opens a deeper experience.
-
----
-
-# Weather Module
-
-**Status:** 85%
-
-## Completed
-
-- [x] Live National Weather Service integration
-- [x] Village-specific forecasts
-- [x] Current conditions
-- [x] Hourly forecast
-- [x] Seven-day forecast
-- [x] Marine forecast
-- [x] Active weather alerts
-- [x] Responsive design
-
-## Planned Improvements
-
-- [ ] Decision banner
-- [ ] Rip current information
-- [ ] Water temperature
-- [ ] Better marine summary
-- [ ] Offshore forecast
-- [ ] Surf forecast
-
----
-
-# Tides Module
-
-**Status:** 80%
-
-## Completed
-
-- [x] Live NOAA tide predictions
-- [x] Tide graph
-- [x] Next tide
-- [x] Countdown
-- [x] Current trend
-- [x] Next 48 hours
-- [x] Seven-day tide table
-- [x] Sunrise
-- [x] Sunset
-- [x] Moon phase
-- [x] Fishing guidance
-
-## Planned Improvements
-
-- [ ] Animated tide position
-- [ ] Solunar periods
-- [ ] Current predictions
-- [ ] Water temperature
-- [ ] Better fishing intelligence
-
----
-
-# Fishing Module
-
-**Status:** Planned
-
-This will become the flagship feature of Project Lighthouse.
-
-## Goal
-
-Instead of showing conditions, answer:
-
-> **Should I fish today?**
-
-## Future Inputs
-
-- Weather
-- Wind
-- Tide
-- Moon
-- Water temperature
-- Surf conditions
-- NOAA buoy data
-- Seasonal species
-- User reports
-
-## Future Outputs
-
-- Daily fishing score
-- Species recommendations
-- Best fishing windows
-- Confidence rating
-
----
-
-# Cameras
-
-**Status:** Planned
-
-## Future Features
-
-- Beach cameras
-- NCDOT cameras
-- Ferry cameras
-- Oregon Inlet
-- Favorites
-
----
-
-# Ferry Module
-
-**Status:** Planned
-
-## Future Features
-
-- Live wait times
-- Delays
-- Capacity
-- Camera integration
-- Notifications
-
----
-
-# Road Conditions
-
-**Status:** Planned
-
-## Future Features
-
-- NC-12 closures
-- Flooding
-- Sand on roadway
-- Construction
-- Travel advisories
-
----
-
-# Maps
-
-**Status:** Planned
-
-Interactive island map.
-
-## Future Layers
-
-- Beach accesses
-- Fishing locations
-- Boat ramps
-- Restaurants
-- Cameras
-- Ferry terminals
-- Public parking
-- Emergency resources
-
----
-
-# Alerts
-
-**Status:** Planned
-
-One place for every important alert.
-
-## Future Integrations
-
-- NOAA
-- Dare County
-- Ferry Division
-- NCDOT
-- National Weather Service
-
----
-
-# Phase 2 — Intelligence
-
-Once every module exists, Project Lighthouse begins making decisions instead of simply displaying information.
-
-Examples:
-
-- 🟢 Excellent beach day.
-- 🟡 Fish after 6:00 PM.
-- 🔴 Avoid offshore.
-- 🟢 Cape Point bite expected tonight.
-
-This phase defines Project Lighthouse.
-
----
-
-# Phase 3 — Polish
-
-Only after the platform is feature complete.
-
-## Future Improvements
-
-- Premium UI
-- Animations
-- Beautiful charts
-- Dark mode
-- Performance optimization
-- Offline capability
-- Native mobile applications
-
----
-
-# Development Philosophy
-
-## Every page answers one question.
+- [x] Git and GitHub repository configured
+- [x] GitHub connected to ChatGPT
+- [x] Approved work consolidated on `main`
+- [x] Documentation established as project memory
+
+## Phase 1: Core MVP Modules ✅ Substantially Complete
+
+### Dashboard
+
+**Status:** Functional MVP
+
+- [x] Community selector
+- [x] Module grid
+- [x] Deep navigation to completed modules
+- [x] Clickable Alerts status item
+- [x] Weather, tides, marine, cameras, roads, ferry, beaches/map placeholders represented
+- [ ] Replace prototype summary values with live cross-module summaries
+- [ ] Final mobile and accessibility pass
 
 ### Weather
 
-> Should I go outside?
+**Status:** Live MVP
+
+**Source:** National Weather Service API
+
+- [x] Village-specific forecast selection
+- [x] Current and forecast conditions
+- [x] Source identification
+- [x] Graceful API failure state
+- [ ] Improve decision-oriented summary
+- [ ] Add water and rip-current context where authoritative data supports it
 
 ### Tides
 
-> What is the water doing?
+**Status:** Functional MVP
 
-### Fishing
+**Source:** NOAA tide predictions
 
-> Should I fish?
+- [x] Tide predictions and graph
+- [x] Next tide and countdown
+- [x] Current trend
+- [x] Extended table
+- [x] Sunrise, sunset, and moon context
+- [ ] Verify all station and timezone behavior
+- [ ] Remove or clearly qualify opinion-based fishing guidance
 
-### Roads
+### Marine Offshore Forecast
 
-> Can I drive?
+**Status:** Live MVP
 
-### Ferry
+**Source:** NWS marine zone AMZ154, south of Cape Hatteras to Ocracoke Inlet out 20 NM
 
-> Can I get across?
+- [x] Replaced Fishing module on dashboard
+- [x] Fixed Hatteras Inlet offshore forecast regardless of village selection
+- [x] Live wind and sea forecast periods
+- [x] Official-source link and update time
+- [x] Graceful failure state
+- [ ] Improve wave-detail parsing
+- [ ] Surface active marine advisories prominently
+- [ ] Add observed buoy conditions later if a reliable source is integrated
 
 ### Cameras
 
-> What does it look like?
+**Status:** Functional MVP directory
 
-### Maps
+- [x] Village view
+- [x] Topic view
+- [x] Approximate map view
+- [x] Search
+- [x] Curated official/location-owned camera links
+- [x] Hatteras map artwork and clickable pins
+- [ ] Verify every camera regularly
+- [ ] Replace inaccurate placeholder counts on dashboard
+- [ ] Embed only feeds that explicitly allow it
+- [ ] Refine visuals later
 
-> Where is it?
+### Roads
+
+**Status:** Functional MVP directory/status page
+
+**Sources:** DriveNC, NCDOT NC 12, official traffic-camera pages
+
+- [x] Dedicated Roads page
+- [x] Official-source links
+- [x] Source and limitation disclosure
+- [ ] Integrate DriveNC structured data after developer access is configured
+- [ ] Connect relevant road incidents to nearby cameras
+- [ ] Replace prototype dashboard road status with live data
+
+### Hatteras–Ocracoke Ferry
+
+**Status:** Functional MVP
+
+**Source:** NCDOT Ferry Division schedule, last supplied update June 25, 2026
+
+- [x] Seasonal 2026 schedules
+- [x] Automatic current schedule selection
+- [x] Next-departure calculation
+- [x] Live countdown
+- [x] Past and next departure highlighting
+- [x] Fare and 70-minute crossing information
+- [x] Official ferry and camera links
+- [ ] Add service disruptions when a reliable structured feed is available
+- [ ] Verify schedule after December 31, 2026 and whenever NCDOT revises it
 
 ### Alerts
 
-> What do I need to know?
+**Status:** Live weather-alert MVP with official supplemental sources
 
----
+**Sources:** NWS, DriveNC, NCDOT Ferry Division, Dare County/OBX Alerts, NPS
 
-# Project Principles
+- [x] Live NWS alerts
+- [x] Severity, urgency, effective, and expiration information
+- [x] Official-source links
+- [x] No-alert and failure states
+- [x] Dashboard status-bar navigation
+- [ ] Integrate non-weather structured alerts where available
+- [ ] Feed active alert count/status back into dashboard
+- [ ] Deep-link alerts to affected modules
 
-- Live data whenever practical.
-- Simplicity beats complexity.
-- Information should lead to decisions.
-- Every feature must earn its place.
-- Build functionality before polish.
-- Build for island residents first.
-- Visitors benefit naturally.
+### Fishing Intelligence
 
----
+**Status:** Deferred
 
-# Long-Term Vision
+Fishing recommendations are not part of the current MVP. They are subjective unless supported by historical observations and clearly stated methodology. The feature may return later as a data-backed intelligence project rather than a collection of opinions dressed in confident typography.
 
-Project Lighthouse should become the first app people open every morning on Hatteras Island.
+### Island Map
 
-Not because it has the most information.
+**Status:** Post-core MVP
 
-Because it provides the clearest guidance.
+Potential layers:
 
----
+- Cameras
+- Ferry terminals
+- Road incidents
+- Beach and ORV access
+- Emergency resources
+- Public parking and facilities
 
-# Motto
+Build only after the underlying datasets are reliable enough to make the map useful.
+
+## Phase 2: Integration and Reliability 🔨 Current
+
+- [ ] Audit every dashboard value and remove prototype claims
+- [ ] Make module summaries live or clearly labeled static
+- [ ] Connect Roads to Cameras
+- [ ] Connect Ferry to terminal cameras and disruptions
+- [ ] Connect Alerts to Weather, Marine, Roads, and Ferry
+- [ ] Standardize source labels and update timestamps
+- [ ] Standardize loading, empty, and failure states
+- [ ] Verify timezone handling across all modules
+- [ ] Add basic automated or repeatable manual testing checklist
+- [ ] Complete responsive and accessibility review
+
+## Phase 3: Public MVP Deployment
+
+- [ ] Select hosting provider
+- [ ] Select and purchase domain
+- [ ] Serve the site over HTTPS
+- [ ] Confirm API behavior from hosted origin
+- [ ] Add lightweight analytics and error monitoring
+- [ ] Test on iPhone, Android, Windows, and major browsers
+- [ ] Conduct quiet private use before public promotion
+- [ ] Add basic privacy, terms, source, and emergency-disclaimer pages
+
+## Phase 4: Product Polish
+
+Only after reliability and deployment are stable:
+
+- [ ] Shared design system
+- [ ] Typography and spacing refinement
+- [ ] Consistent icons
+- [ ] Improved charts
+- [ ] Animations and transitions
+- [ ] Performance optimization
+- [ ] PWA installation and offline shell
+- [ ] Dark mode if it materially improves usability
+
+## Phase 5: Intelligence
+
+Lighthouse may eventually convert trusted data into clearly explained guidance, such as:
+
+- Road travel risk based on official closures and flooding reports
+- Offshore caution summaries based on NWS advisories and forecast thresholds
+- Beach-condition summaries using official hazards and weather
+- Data-backed fishing intelligence after sufficient historical evidence exists
+
+Every recommendation must show its source or methodology. Lighthouse should never conceal opinion behind a green dot.
+
+## Core Principles
+
+1. Guide decisions, not merely display data.
+2. One glance should answer the user's immediate question.
+3. Every page should have one primary purpose.
+4. Functionality and reliability come before polish.
+5. Use live authoritative data whenever practical.
+6. Clearly identify every source.
+7. Never invent safety-critical status information.
+8. Build for residents first; visitors benefit naturally.
+9. Static datasets are acceptable when authoritative and maintained.
+10. Graceful failure is part of the product, not an afterthought.
+
+## Immediate Next Priorities
+
+1. Audit dashboard prototype values.
+2. Verify each existing module and fix broken links or stale labels.
+3. Improve cross-module navigation and shared status summaries.
+4. Complete mobile/accessibility cleanup.
+5. Prepare the application for public hosting.
+
+## Motto
 
 > **Let the light guide you.**
