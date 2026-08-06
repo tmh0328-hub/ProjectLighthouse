@@ -15,12 +15,12 @@ body { margin: 0; min-height: 100vh; font-family: Inter, system-ui, sans-serif; 
 button, select { font: inherit; }
 a { color: inherit; }
 
-.site-header { height: 96px; display: grid; grid-template-columns: 265px minmax(0, 1fr) 140px; align-items: center; gap: 18px; padding: 8px 34px; background: linear-gradient(90deg, var(--navy-deep), var(--navy)); color: white; box-shadow: 0 3px 12px rgba(3,31,51,.28); }
-.header-brand { display: flex; align-items: center; width: 245px; height: 80px; overflow: visible; text-decoration: none; }
+.site-header { height: 96px; display: grid; grid-template-columns: 285px minmax(0, 1fr) 140px; align-items: center; gap: 18px; padding: 8px 34px; background: linear-gradient(90deg, var(--navy-deep), var(--navy)); color: white; box-shadow: 0 3px 12px rgba(3,31,51,.28); }
+.header-brand { display: flex; align-items: center; width: 270px; height: 82px; overflow: visible; text-decoration: none; }
 .header-brand img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
 .primary-nav { height: 100%; display: grid; grid-template-columns: repeat(9, minmax(68px, 1fr)); }
 .primary-nav a { position: relative; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; text-decoration: none; color: rgba(255,255,255,.92); font-size: .72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
-.primary-nav a span { font-size: 1.5rem; line-height: 1; }
+.primary-nav a span { font-size: 1.5rem; line-height: 1; color: var(--gold); }
 .primary-nav a:hover, .primary-nav a.active { color: var(--gold); }
 .primary-nav a.active::after { content: ""; position: absolute; left: 15%; right: 15%; bottom: 0; height: 3px; background: var(--gold); }
 .header-time { display: flex; align-items: center; justify-content: end; gap: 10px; }
@@ -47,7 +47,7 @@ h1 { margin-bottom: 0; font-family: "Libre Franklin", Inter, sans-serif; font-si
 .module:hover { transform: translateY(-2px); box-shadow: 0 18px 38px rgba(6,38,60,.24); }
 .module:hover::before { transform: scale(1.01); }
 .module:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
-.module-icon { width: 58px; height: 58px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 16px; background: rgba(53, 98, 127, .55); border: 1px solid rgba(255,255,255,.08); font-size: 1.65rem; text-shadow: 0 2px 7px rgba(0,0,0,.25); }
+.module-icon { width: 58px; height: 58px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 16px; background: rgba(53, 98, 127, .55); border: 1px solid rgba(245,181,21,.28); color: var(--gold); font-size: 1.65rem; text-shadow: none; }
 .module-copy { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 7px; min-width: 0; }
 .module-label { color: var(--gold); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .module-copy strong { font-size: clamp(1.35rem, 2.25vw, 1.9rem); line-height: 1.05; letter-spacing: -.035em; }
@@ -59,9 +59,9 @@ h1 { margin-bottom: 0; font-family: "Libre Franklin", Inter, sans-serif; font-si
 .marine { --card-image: url("assets/dashboard/marine.png"); --image-position: 50% 50%; }
 .cameras { --card-image: url("assets/dashboard/cameras.png"); --image-position: 50% 48%; }
 .roads { --card-image: url("assets/dashboard/roads.jpg"); --image-position: 50% 52%; }
-.ferry { --card-image: url("assets/dashboard/Ferries.png"); --image-width: 76%; --image-size: contain; --image-position: right center; background: #8ea5b5; }
-.ferry .module-overlay { background: linear-gradient(90deg, rgba(3,31,51,1) 0%, rgba(3,31,51,.98) 29%, rgba(3,31,51,.82) 47%, rgba(3,31,51,.32) 69%, rgba(3,31,51,.02) 100%); }
-.beaches { --card-image: url("assets/dashboard/beaches.png"); --image-width: 70%; --image-size: cover; --image-position: 58% 63%; }
+.ferry { --card-image: url("assets/dashboard/Ferries.png"); --image-width: 100%; --image-size: cover; --image-position: 50% 58%; background: var(--navy-deep); }
+.ferry .module-overlay { background: linear-gradient(90deg, rgba(3,31,51,1) 0%, rgba(3,31,51,.98) 27%, rgba(3,31,51,.78) 46%, rgba(3,31,51,.28) 68%, rgba(3,31,51,.03) 100%); }
+.beaches { --card-image: url("assets/dashboard/beaches.png"); --image-width: 70%; --image-size: cover; --image-position: 58% 79%; }
 .map { --card-image: url("assets/dashboard/island-map.png"); --image-position: 43% 50%; }
 
 .dashboard-footer { margin-top: 16px; min-height: 66px; display: grid; grid-template-columns: 1.1fr 1fr 1.4fr .8fr; align-items: center; gap: 16px; padding: 13px 20px; border-radius: 14px; background: linear-gradient(90deg, var(--navy-deep), var(--navy)); color: white; box-shadow: var(--shadow); }
@@ -86,15 +86,15 @@ dialog::backdrop { background: rgba(4,25,39,.65); backdrop-filter: blur(5px); }
 .prototype-note { margin-top: 15px; padding: 13px 15px; border-radius: 12px; background: #f5ead0; color: #695416; }
 
 @media (max-width: 1180px) {
-  .site-header { grid-template-columns: 220px 1fr; padding-inline: 22px; }
-  .header-brand { width: 210px; }
+  .site-header { grid-template-columns: 235px 1fr; padding-inline: 22px; }
+  .header-brand { width: 225px; }
   .header-time { display: none; }
   .primary-nav { overflow-x: auto; grid-template-columns: repeat(9, 82px); justify-content: start; }
 }
 
 @media (max-width: 820px) {
   .site-header { display: block; height: auto; padding: 10px 14px 0; }
-  .header-brand { width: 210px; height: 68px; margin: 0 auto 6px; }
+  .header-brand { width: 230px; height: 68px; margin: 0 auto 6px; }
   .primary-nav { margin-inline: -14px; padding-inline: 8px; min-height: 70px; border-top: 1px solid rgba(255,255,255,.1); }
   .site-shell { width: min(100% - 20px, 720px); padding-top: 14px; }
   .dashboard-heading { align-items: flex-start; flex-direction: column; }
@@ -102,6 +102,7 @@ dialog::backdrop { background: rgba(4,25,39,.65); backdrop-filter: blur(5px); }
   .module-grid { grid-template-columns: 1fr; }
   .module { min-height: 150px; }
   .module::before { width: 74%; }
+  .ferry::before { width: 100%; }
   .dashboard-footer { grid-template-columns: 1fr 1fr; }
 }
 
@@ -111,6 +112,7 @@ dialog::backdrop { background: rgba(4,25,39,.65); backdrop-filter: blur(5px); }
   .community-control select { min-width: 145px; }
   .module { min-height: 142px; padding: 18px; gap: 13px; border-radius: 15px; }
   .module::before { width: 78%; }
+  .ferry::before { width: 100%; }
   .module-icon { width: 48px; height: 48px; border-radius: 14px; font-size: 1.4rem; }
   .module-copy strong { font-size: 1.35rem; }
   .module-copy span:last-child { font-size: .82rem; }
