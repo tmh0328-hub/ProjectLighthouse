@@ -3,54 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Hatteras Live: a dashboard for Hatteras Island." />
+  <meta name="description" content="Hatteras Live dashboard for Hatteras Island conditions." />
   <title>Hatteras Live</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="brand.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="site-header">
+    <a class="header-brand" href="index.html" aria-label="Hatteras Live dashboard">
+      <img src="hatteras-live-logo.svg" alt="Hatteras Live" />
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <a class="active" href="index.html"><span>⌂</span>Dashboard</a>
+      <a href="weather.html"><span>☁</span>Weather</a>
+      <a href="tides.html"><span>≋</span>Tides</a>
+      <a href="marine.html"><span>⚓</span>Marine</a>
+      <a href="cameras.html"><span>▣</span>Cameras</a>
+      <a href="roads.html"><span>▥</span>Roads</a>
+      <a href="ferry.html"><span>⛴</span>Ferries</a>
+      <a href="#beaches"><span>☂</span>Beaches</a>
+      <a href="#map"><span>⌖</span>Island Map</a>
+    </nav>
+
+    <div class="header-time" aria-label="Current local time">
+      <span class="clock-icon">◷</span>
+      <div><strong id="currentTime">--:--</strong><span id="currentDate">--/--/----</span></div>
+    </div>
+  </header>
+
   <div class="site-shell">
-    <header class="topbar">
-      <div class="dashboard-brand">
-        <a class="hatteras-logo-link" href="index.html" aria-label="Hatteras Live dashboard">
-          <img class="hatteras-logo" src="hatteras-live-logo.svg" alt="Hatteras Live" />
-        </a>
-        <p class="tagline">Let the light guide you.</p>
-      </div>
-
-      <div class="location-control">
-        <label for="communitySelect">Community</label>
-        <select id="communitySelect">
-          <option>Rodanthe</option><option>Waves</option><option>Salvo</option><option>Avon</option><option selected>Buxton</option><option>Frisco</option><option>Hatteras</option>
-        </select>
-      </div>
-    </header>
-
-    <section class="status-strip" aria-label="Island status summary">
-      <div><span class="status-dot good"></span><strong>NC-12</strong><span>Open</span></div>
-      <div><span class="status-dot good"></span><strong>Ferry</strong><span>On schedule</span></div>
-      <div><span class="status-dot caution"></span><strong>Rip risk</strong><span>Moderate</span></div>
-      <a class="status-link" href="alerts.html" aria-label="Open active alerts details"><span class="status-dot good"></span><strong>Alerts</strong><span>None active</span><span class="status-chevron">→</span></a>
-    </section>
-
     <main>
-      <section class="dashboard-heading"><div><p class="eyebrow">TODAY AT A GLANCE</p><h2 id="dashboardTitle">Buxton</h2></div><p class="updated">Prototype data · not live yet</p></section>
-      <section class="module-grid" id="moduleGrid">
-        <button class="module weather" data-module="weather"><div class="module-icon">☀</div><div class="module-copy"><span class="module-label">Weather</span><strong>81°F</strong><span>SW 14 mph · 30% rain</span></div><span class="module-arrow">→</span></button>
-        <button class="module tides" data-module="tides"><div class="module-icon">≈</div><div class="module-copy"><span class="module-label">Tides</span><strong>High 7:18 PM</strong><span>Rising · 2 hr 41 min</span></div><span class="module-arrow">→</span></button>
-        <button class="module marine" data-module="marine"><div class="module-icon">⚓</div><div class="module-copy"><span class="module-label">Marine</span><strong>Offshore forecast</strong><span>Wind · seas · thunderstorms</span></div><span class="module-arrow">→</span></button>
-        <button class="module cameras" data-module="cameras"><div class="module-icon">◉</div><div class="module-copy"><span class="module-label">Cameras</span><strong>18 online</strong><span>Roads · beaches · ferries</span></div><span class="module-arrow">→</span></button>
-        <button class="module roads" data-module="roads"><div class="module-icon">↟</div><div class="module-copy"><span class="module-label">Roads</span><strong>Normal</strong><span>NC-12 open · no flooding</span></div><span class="module-arrow">→</span></button>
-        <button class="module ferry" data-module="ferry"><div class="module-icon">⛴</div><div class="module-copy"><span class="module-label">Ferries</span><strong>On schedule</strong><span>Hatteras–Ocracoke</span></div><span class="module-arrow">→</span></button>
-        <button class="module beaches" data-module="beaches"><div class="module-icon">⌁</div><div class="module-copy"><span class="module-label">Beaches</span><strong>Moderate risk</strong><span>Surf 2–3 ft · water 78°F</span></div><span class="module-arrow">→</span></button>
-        <button class="module map" data-module="map"><div class="module-icon">⌖</div><div class="module-copy"><span class="module-label">Island Map</span><strong>Explore Hatteras</strong><span>Accesses · ramps · POIs</span></div><span class="module-arrow">→</span></button>
+      <section class="dashboard-heading">
+        <div>
+          <p class="eyebrow">TODAY AT A GLANCE</p>
+          <div class="heading-row">
+            <h1 id="dashboardTitle">Buxton</h1>
+            <label class="community-control">
+              <span>Community</span>
+              <select id="communitySelect">
+                <option>Rodanthe</option>
+                <option>Waves</option>
+                <option>Salvo</option>
+                <option>Avon</option>
+                <option selected>Buxton</option>
+                <option>Frisco</option>
+                <option>Hatteras</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <p class="prototype-label">Prototype data · not live yet</p>
       </section>
+
+      <section class="module-grid" id="moduleGrid">
+        <button class="module weather" data-module="weather" style="--card-image: url('assets/dashboard/weather.webp')">
+          <span class="module-overlay"></span>
+          <div class="module-icon">☁</div>
+          <div class="module-copy">
+            <span class="module-label">Weather</span>
+            <strong>81°F</strong>
+            <span>SW 14 mph · 30% rain</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module tides" data-module="tides" style="--card-image: url('assets/dashboard/tides.webp')">
+          <span class="module-overlay"></span>
+          <div class="module-icon">≋</div>
+          <div class="module-copy">
+            <span class="module-label">Tides</span>
+            <strong>High 7:18 PM</strong>
+            <span>Rising · 2 hr 41 min</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module marine" data-module="marine" style="--card-image: url('assets/dashboard/marine.webp')">
+          <span class="module-overlay"></span>
+          <div class="module-icon">⚓</div>
+          <div class="module-copy">
+            <span class="module-label">Marine</span>
+            <strong>Offshore forecast</strong>
+            <span>Wind · seas · thunderstorms</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module cameras" data-module="cameras" style="--card-image: url('assets/dashboard/cameras.webp')">
+          <span class="module-overlay"></span>
+          <div class="module-icon">●</div>
+          <div class="module-copy">
+            <span class="module-label">Cameras</span>
+            <strong>18 online</strong>
+            <span>Roads · beaches · ferries</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module roads" data-module="roads" style="--card-image: url('assets/dashboard/roads.webp')">
+          <span class="module-overlay"></span>
+          <div class="module-icon">▥</div>
+          <div class="module-copy">
+            <span class="module-label">Roads</span>
+            <strong>Normal</strong>
+            <span>NC-12 open · no flooding</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button class="module ferry" data-module="ferry" style="--card-image: url('assets/dashboard/ferries.webp')">
+          <span class="module-overlay"></span>
+          <div class="module-icon">⛴</div>
+          <div class="module-copy">
+            <span class="module-label">Ferries</span>
+            <strong>On schedule</strong>
+            <span>Hatteras–Ocracoke</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button id="beaches" class="module beaches" data-module="beaches" style="--card-image: url('assets/dashboard/beaches.webp')">
+          <span class="module-overlay"></span>
+          <div class="module-icon">☂</div>
+          <div class="module-copy">
+            <span class="module-label">Beaches</span>
+            <strong>Moderate risk</strong>
+            <span>Surf 2–3 ft · water 78°F</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+
+        <button id="map" class="module map" data-module="map" style="--card-image: url('assets/dashboard/island-map.webp')">
+          <span class="module-overlay"></span>
+          <div class="module-icon">⌖</div>
+          <div class="module-copy">
+            <span class="module-label">Island Map</span>
+            <strong>Explore Hatteras</strong>
+            <span>Accesses · ramps · POIs</span>
+          </div>
+          <span class="module-arrow">→</span>
+        </button>
+      </section>
+
+      <footer class="dashboard-footer">
+        <div><span class="status-dot"></span><p><strong>All systems normal</strong><span>No alerts at this time</span></p></div>
+        <div><span class="footer-icon">◷</span><p><strong>Last updated</strong><span id="footerUpdated">Local prototype</span></p></div>
+        <div><span class="footer-icon">◉</span><p><strong>Data sources</strong><span>NWS · NOAA · NCDOT · Dare County</span></p></div>
+        <div><span class="footer-icon">ⓘ</span><p><strong>Prototype</strong><span>Data not live</span></p></div>
+      </footer>
     </main>
   </div>
-  <dialog id="detailDialog"><div class="dialog-header"><div><p class="eyebrow">MODULE DETAIL</p><h2 id="detailTitle">Weather</h2></div><button id="closeDialog" class="close-button" aria-label="Close">×</button></div><div id="detailBody" class="detail-body"></div></dialog>
+
+  <dialog id="detailDialog">
+    <div class="dialog-header">
+      <div><p class="eyebrow">MODULE DETAIL</p><h2 id="detailTitle">Module</h2></div>
+      <button id="closeDialog" class="close-button" aria-label="Close">×</button>
+    </div>
+    <div id="detailBody" class="detail-body"></div>
+  </dialog>
+
   <script src="app.js"></script>
 </body>
 </html>
