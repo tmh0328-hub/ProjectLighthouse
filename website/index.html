@@ -3,32 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Project Lighthouse: a dashboard for Hatteras Island." />
-  <title>Project Lighthouse</title>
+  <meta name="description" content="Hatteras Live: a dashboard for Hatteras Island." />
+  <title>Hatteras Live</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brand.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="site-shell">
     <header class="topbar">
-      <div>
-        <p class="eyebrow">PROJECT LIGHTHOUSE</p>
-        <h1>Hatteras Island Dashboard</h1>
+      <div class="dashboard-brand">
+        <a class="hatteras-logo-link" href="index.html" aria-label="Hatteras Live dashboard">
+          <img class="hatteras-logo" src="hatteras-live-logo.svg" alt="Hatteras Live" />
+        </a>
         <p class="tagline">Let the light guide you.</p>
       </div>
 
       <div class="location-control">
         <label for="communitySelect">Community</label>
         <select id="communitySelect">
-          <option>Rodanthe</option>
-          <option>Waves</option>
-          <option>Salvo</option>
-          <option>Avon</option>
-          <option selected>Buxton</option>
-          <option>Frisco</option>
-          <option>Hatteras</option>
+          <option>Rodanthe</option><option>Waves</option><option>Salvo</option><option>Avon</option><option selected>Buxton</option><option>Frisco</option><option>Hatteras</option>
         </select>
       </div>
     </header>
@@ -37,115 +33,24 @@
       <div><span class="status-dot good"></span><strong>NC-12</strong><span>Open</span></div>
       <div><span class="status-dot good"></span><strong>Ferry</strong><span>On schedule</span></div>
       <div><span class="status-dot caution"></span><strong>Rip risk</strong><span>Moderate</span></div>
-      <a class="status-link" href="alerts.html" aria-label="Open active alerts details">
-        <span class="status-dot good"></span><strong>Alerts</strong><span>None active</span><span class="status-chevron">→</span>
-      </a>
+      <a class="status-link" href="alerts.html" aria-label="Open active alerts details"><span class="status-dot good"></span><strong>Alerts</strong><span>None active</span><span class="status-chevron">→</span></a>
     </section>
 
     <main>
-      <section class="dashboard-heading">
-        <div>
-          <p class="eyebrow">TODAY AT A GLANCE</p>
-          <h2 id="dashboardTitle">Buxton</h2>
-        </div>
-        <p class="updated">Prototype data · not live yet</p>
-      </section>
-
+      <section class="dashboard-heading"><div><p class="eyebrow">TODAY AT A GLANCE</p><h2 id="dashboardTitle">Buxton</h2></div><p class="updated">Prototype data · not live yet</p></section>
       <section class="module-grid" id="moduleGrid">
-        <button class="module weather" data-module="weather">
-          <div class="module-icon">☀</div>
-          <div class="module-copy">
-            <span class="module-label">Weather</span>
-            <strong>81°F</strong>
-            <span>SW 14 mph · 30% rain</span>
-          </div>
-          <span class="module-arrow">→</span>
-        </button>
-
-        <button class="module tides" data-module="tides">
-          <div class="module-icon">≈</div>
-          <div class="module-copy">
-            <span class="module-label">Tides</span>
-            <strong>High 7:18 PM</strong>
-            <span>Rising · 2 hr 41 min</span>
-          </div>
-          <span class="module-arrow">→</span>
-        </button>
-
-        <button class="module marine" data-module="marine">
-          <div class="module-icon">⚓</div>
-          <div class="module-copy">
-            <span class="module-label">Marine</span>
-            <strong>Offshore forecast</strong>
-            <span>Wind · seas · thunderstorms</span>
-          </div>
-          <span class="module-arrow">→</span>
-        </button>
-
-        <button class="module cameras" data-module="cameras">
-          <div class="module-icon">◉</div>
-          <div class="module-copy">
-            <span class="module-label">Cameras</span>
-            <strong>18 online</strong>
-            <span>Roads · beaches · ferries</span>
-          </div>
-          <span class="module-arrow">→</span>
-        </button>
-
-        <button class="module roads" data-module="roads">
-          <div class="module-icon">↟</div>
-          <div class="module-copy">
-            <span class="module-label">Roads</span>
-            <strong>Normal</strong>
-            <span>NC-12 open · no flooding</span>
-          </div>
-          <span class="module-arrow">→</span>
-        </button>
-
-        <button class="module ferry" data-module="ferry">
-          <div class="module-icon">⛴</div>
-          <div class="module-copy">
-            <span class="module-label">Ferries</span>
-            <strong>On schedule</strong>
-            <span>Hatteras–Ocracoke</span>
-          </div>
-          <span class="module-arrow">→</span>
-        </button>
-
-        <button class="module beaches" data-module="beaches">
-          <div class="module-icon">⌁</div>
-          <div class="module-copy">
-            <span class="module-label">Beaches</span>
-            <strong>Moderate risk</strong>
-            <span>Surf 2–3 ft · water 78°F</span>
-          </div>
-          <span class="module-arrow">→</span>
-        </button>
-
-        <button class="module map" data-module="map">
-          <div class="module-icon">⌖</div>
-          <div class="module-copy">
-            <span class="module-label">Island Map</span>
-            <strong>Explore Hatteras</strong>
-            <span>Accesses · ramps · POIs</span>
-          </div>
-          <span class="module-arrow">→</span>
-        </button>
+        <button class="module weather" data-module="weather"><div class="module-icon">☀</div><div class="module-copy"><span class="module-label">Weather</span><strong>81°F</strong><span>SW 14 mph · 30% rain</span></div><span class="module-arrow">→</span></button>
+        <button class="module tides" data-module="tides"><div class="module-icon">≈</div><div class="module-copy"><span class="module-label">Tides</span><strong>High 7:18 PM</strong><span>Rising · 2 hr 41 min</span></div><span class="module-arrow">→</span></button>
+        <button class="module marine" data-module="marine"><div class="module-icon">⚓</div><div class="module-copy"><span class="module-label">Marine</span><strong>Offshore forecast</strong><span>Wind · seas · thunderstorms</span></div><span class="module-arrow">→</span></button>
+        <button class="module cameras" data-module="cameras"><div class="module-icon">◉</div><div class="module-copy"><span class="module-label">Cameras</span><strong>18 online</strong><span>Roads · beaches · ferries</span></div><span class="module-arrow">→</span></button>
+        <button class="module roads" data-module="roads"><div class="module-icon">↟</div><div class="module-copy"><span class="module-label">Roads</span><strong>Normal</strong><span>NC-12 open · no flooding</span></div><span class="module-arrow">→</span></button>
+        <button class="module ferry" data-module="ferry"><div class="module-icon">⛴</div><div class="module-copy"><span class="module-label">Ferries</span><strong>On schedule</strong><span>Hatteras–Ocracoke</span></div><span class="module-arrow">→</span></button>
+        <button class="module beaches" data-module="beaches"><div class="module-icon">⌁</div><div class="module-copy"><span class="module-label">Beaches</span><strong>Moderate risk</strong><span>Surf 2–3 ft · water 78°F</span></div><span class="module-arrow">→</span></button>
+        <button class="module map" data-module="map"><div class="module-icon">⌖</div><div class="module-copy"><span class="module-label">Island Map</span><strong>Explore Hatteras</strong><span>Accesses · ramps · POIs</span></div><span class="module-arrow">→</span></button>
       </section>
     </main>
   </div>
-
-  <dialog id="detailDialog">
-    <div class="dialog-header">
-      <div>
-        <p class="eyebrow">MODULE DETAIL</p>
-        <h2 id="detailTitle">Weather</h2>
-      </div>
-      <button id="closeDialog" class="close-button" aria-label="Close">×</button>
-    </div>
-    <div id="detailBody" class="detail-body"></div>
-  </dialog>
-
+  <dialog id="detailDialog"><div class="dialog-header"><div><p class="eyebrow">MODULE DETAIL</p><h2 id="detailTitle">Weather</h2></div><button id="closeDialog" class="close-button" aria-label="Close">×</button></div><div id="detailBody" class="detail-body"></div></dialog>
   <script src="app.js"></script>
 </body>
 </html>
