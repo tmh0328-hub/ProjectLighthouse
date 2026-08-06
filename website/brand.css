@@ -1,0 +1,58 @@
+:root {
+  --brand-navy: #071f36;
+  --brand-gold: #d99a2b;
+  --brand-cream: #f7f2e8;
+}
+
+.hatteras-logo {
+  display: block;
+  width: min(310px, 54vw);
+  height: auto;
+}
+
+.hatteras-logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.module-brand-mark {
+  width: 112px;
+  height: 82px;
+  object-fit: cover;
+  object-position: 50% 13%;
+  border-radius: 12px;
+  background: white;
+}
+
+.brand-block,
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.brand-block::before,
+.brand-lockup::before {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  background: white url("hatteras-live-logo.svg") center 14% / 92px auto no-repeat;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(7,31,54,.09);
+}
+
+.brand-block > *,
+.brand-lockup > * {
+  text-align: left;
+}
+
+@media (max-width: 840px) {
+  .brand-block::before,
+  .brand-lockup::before {
+    display: none;
+  }
+}
