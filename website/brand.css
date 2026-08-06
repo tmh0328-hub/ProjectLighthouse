@@ -58,7 +58,12 @@ body {
 .weather-nav a,
 .page-header a,
 .back-link { color:var(--brand-gold) !important; font-weight:800 !important; text-decoration:none !important; }
-.community-picker,
+.community-picker {
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  box-shadow:none !important;
+}
 .station-pill {
   background:rgba(255,255,255,.12) !important;
   border:1px solid rgba(245,181,21,.42) !important;
@@ -66,7 +71,14 @@ body {
 }
 .community-picker span,
 .station-pill span { color:rgba(255,255,255,.86) !important; }
-.community-picker select { background:white !important; color:var(--brand-ink) !important; border-color:transparent !important; }
+.community-picker select {
+  background:white !important;
+  color:var(--brand-ink) !important;
+  border:0 !important;
+  border-radius:10px !important;
+  padding:10px 14px !important;
+  box-shadow:none !important;
+}
 
 .hero-card,
 .panel,
@@ -100,7 +112,6 @@ body {
 .hero-card .condition,
 .hero-card .current-detail { color:white !important; }
 
-/* Light cards inside dark heroes need dark text. This was the main contrast failure. */
 .hero-card .hero-stats > div,
 .hero-card .hero-stats > article,
 .hero-card .metrics > article {
