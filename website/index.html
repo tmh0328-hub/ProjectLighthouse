@@ -9,6 +9,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/dashboard/weather.css" />
+  <link rel="stylesheet" href="assets/dashboard/tides.css" />
+  <link rel="stylesheet" href="assets/dashboard/marine.css" />
+  <link rel="stylesheet" href="assets/dashboard/cameras.css" />
+  <link rel="stylesheet" href="assets/dashboard/roads.css" />
+  <link rel="stylesheet" href="assets/dashboard/ferries.css" />
+  <link rel="stylesheet" href="assets/dashboard/beaches.css" />
+  <link rel="stylesheet" href="assets/dashboard/island-map.css" />
 </head>
 <body>
   <header class="site-header">
@@ -59,91 +67,59 @@
       </section>
 
       <section class="module-grid" id="moduleGrid">
-        <button class="module weather" data-module="weather" style="--card-image: url('assets/dashboard/weather.webp')">
+        <button class="module weather" data-module="weather">
           <span class="module-overlay"></span>
           <div class="module-icon">☁</div>
-          <div class="module-copy">
-            <span class="module-label">Weather</span>
-            <strong>81°F</strong>
-            <span>SW 14 mph · 30% rain</span>
-          </div>
+          <div class="module-copy"><span class="module-label">Weather</span><strong>81°F</strong><span>SW 14 mph · 30% rain</span></div>
           <span class="module-arrow">→</span>
         </button>
 
-        <button class="module tides" data-module="tides" style="--card-image: url('assets/dashboard/tides.webp')">
+        <button class="module tides" data-module="tides">
           <span class="module-overlay"></span>
           <div class="module-icon">≋</div>
-          <div class="module-copy">
-            <span class="module-label">Tides</span>
-            <strong>High 7:18 PM</strong>
-            <span>Rising · 2 hr 41 min</span>
-          </div>
+          <div class="module-copy"><span class="module-label">Tides</span><strong>High 7:18 PM</strong><span>Rising · 2 hr 41 min</span></div>
           <span class="module-arrow">→</span>
         </button>
 
-        <button class="module marine" data-module="marine" style="--card-image: url('assets/dashboard/marine.webp')">
+        <button class="module marine" data-module="marine">
           <span class="module-overlay"></span>
           <div class="module-icon">⚓</div>
-          <div class="module-copy">
-            <span class="module-label">Marine</span>
-            <strong>Offshore forecast</strong>
-            <span>Wind · seas · thunderstorms</span>
-          </div>
+          <div class="module-copy"><span class="module-label">Marine</span><strong>Offshore forecast</strong><span>Wind · seas · thunderstorms</span></div>
           <span class="module-arrow">→</span>
         </button>
 
-        <button class="module cameras" data-module="cameras" style="--card-image: url('assets/dashboard/cameras.webp')">
+        <button class="module cameras" data-module="cameras">
           <span class="module-overlay"></span>
           <div class="module-icon">●</div>
-          <div class="module-copy">
-            <span class="module-label">Cameras</span>
-            <strong>18 online</strong>
-            <span>Roads · beaches · ferries</span>
-          </div>
+          <div class="module-copy"><span class="module-label">Cameras</span><strong>18 online</strong><span>Roads · beaches · ferries</span></div>
           <span class="module-arrow">→</span>
         </button>
 
-        <button class="module roads" data-module="roads" style="--card-image: url('assets/dashboard/roads.webp')">
+        <button class="module roads" data-module="roads">
           <span class="module-overlay"></span>
           <div class="module-icon">▥</div>
-          <div class="module-copy">
-            <span class="module-label">Roads</span>
-            <strong>Normal</strong>
-            <span>NC-12 open · no flooding</span>
-          </div>
+          <div class="module-copy"><span class="module-label">Roads</span><strong>Normal</strong><span>NC-12 open · no flooding</span></div>
           <span class="module-arrow">→</span>
         </button>
 
-        <button class="module ferry" data-module="ferry" style="--card-image: url('assets/dashboard/ferries.webp')">
+        <button class="module ferry" data-module="ferry">
           <span class="module-overlay"></span>
           <div class="module-icon">⛴</div>
-          <div class="module-copy">
-            <span class="module-label">Ferries</span>
-            <strong>On schedule</strong>
-            <span>Hatteras–Ocracoke</span>
-          </div>
+          <div class="module-copy"><span class="module-label">Ferries</span><strong>On schedule</strong><span>Hatteras–Ocracoke</span></div>
           <span class="module-arrow">→</span>
         </button>
 
-        <button id="beaches" class="module beaches" data-module="beaches" style="--card-image: url('assets/dashboard/beaches.webp')">
+        <button id="beaches" class="module beaches" data-module="beaches">
           <span class="module-overlay"></span>
           <div class="module-icon">☂</div>
-          <div class="module-copy">
-            <span class="module-label">Beaches</span>
-            <strong>Moderate risk</strong>
-            <span>Surf 2–3 ft · water 78°F</span>
-          </div>
+          <div class="module-copy"><span class="module-label">Beaches</span><strong>Moderate risk</strong><span>Surf 2–3 ft · water 78°F</span></div>
           <span class="module-arrow">→</span>
         </button>
 
-        <button id="map" class="module map" data-module="map" style="--card-image: url('assets/dashboard/island-map.webp')">
+        <button id="map" class="module map" data-module="map">
           <span class="module-overlay"></span>
           <div class="module-icon">⌖</div>
-          <div class="module-copy">
-            <span class="module-label">Island Map</span>
-            <strong>Explore Hatteras</strong>
-            <span>Accesses · ramps · POIs</span>
-          </div>
+          <div class="module-copy"><span class="module-label">Island Map</span><strong>Explore Hatteras</strong><span>Accesses · ramps · POIs</span></div>
           <span class="module-arrow">→</span>
         </button>
       </section>
