@@ -1,0 +1,15 @@
+.marine-glyph {
+  color: var(--gold) !important;
+  font-family: "Segoe UI Symbol", "Arial Unicode MS", sans-serif !important;
+  font-variant-emoji: text;
+  text-shadow: none !important;
+}
+
+.primary-nav .marine-glyph {
+  font-size: 1.58rem;
+  line-height: 1;
+}
+
+.module.marine .module-icon {
+  color: var(--gold) !important;
+}
