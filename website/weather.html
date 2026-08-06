@@ -64,6 +64,10 @@
           <div class="metric-grid">
             <div class="metric-card"><span>Today's high</span><strong id="todayHigh">--°</strong></div>
             <div class="metric-card"><span>Tonight's low</span><strong id="tonightLow">--°</strong></div>
+            <div class="metric-card"><span>Wind speed</span><strong id="windSpeed">--</strong></div>
+            <div class="metric-card"><span>Wind direction</span><strong id="windDirection">--</strong></div>
+            <div class="metric-card"><span>Rain, previous 24 hours</span><strong id="rainPrevious24">--</strong><small id="rainPreviousNote">Nearest reporting station</small></div>
+            <div class="metric-card"><span>Rain, next 24 hours</span><strong id="rainNext24">--</strong><small>NWS forecast total</small></div>
             <div class="metric-card"><span>Visibility</span><strong id="visibility">--</strong></div>
             <div class="metric-card"><span>Pressure</span><strong id="pressure">--</strong></div>
           </div>
@@ -85,6 +89,11 @@
         <div class="section-heading"><div><p class="eyebrow">FORECAST CONTEXT</p><h2>What to expect</h2></div></div>
         <p id="forecastDiscussion">Loading forecast summary…</p>
       </section>
+
+      <footer class="data-source-footer">
+        <span>Weather data source</span>
+        <a id="weatherSourceLink" href="https://www.weather.gov/" target="_blank" rel="noopener noreferrer">National Weather Service ↗</a>
+      </footer>
     </main>
   </div>
 
