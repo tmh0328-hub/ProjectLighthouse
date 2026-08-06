@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 250" role="img" aria-labelledby="title desc">
   <title id="title">Hatteras Live</title>
-  <desc id="desc">Cape Hatteras lighthouse with black and white candy-cane striping, a gold light beam, and the words Hatteras Live.</desc>
+  <desc id="desc">Cape Hatteras lighthouse with black and white candy-cane striping, a broad gold light beam, and centered Hatteras Live wording.</desc>
   <defs>
     <linearGradient id="beam" x1="0" x2="1">
-      <stop offset="0" stop-color="#f5b515" stop-opacity=".95"/>
-      <stop offset="1" stop-color="#f7d77b" stop-opacity=".22"/>
+      <stop offset="0" stop-color="#f5b515" stop-opacity=".92"/>
+      <stop offset="1" stop-color="#f7d77b" stop-opacity=".12"/>
     </linearGradient>
   </defs>
 
   <g transform="translate(18 8)">
-    <path fill="url(#beam)" d="M112 56 262 137 122 100Z"/>
+    <path fill="url(#beam)" d="M124 54 L286 18 L286 184 L124 94 Z"/>
     <path fill="#ffffff" d="M62 205 78 66h55l17 139Z"/>
     <path fill="#071f36" d="m76 87 62 45 5 38-71-52Zm-7 56 76 56-3 14h-27l-50-38Z"/>
     <path fill="#ffffff" d="M65 205h89v15H65z"/>
@@ -19,9 +19,9 @@
     <path fill="#ffffff" d="M42 205c7-25 13-39 19-47-2 21 0 37 6 47zm-15 0c-2-18-1-32 4-42 4 18 8 32 14 42zm136 0c3-22 9-38 18-47-3 22-2 38 3 47zm17 0c7-20 15-34 24-41-6 19-8 33-8 41z"/>
   </g>
 
-  <g transform="translate(285 0)">
-    <text x="0" y="116" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="700" letter-spacing="4">HATTERAS</text>
-    <path stroke="#f5b515" stroke-width="5" stroke-linecap="round" d="M8 172h93m217 0h93"/>
-    <text x="206" y="185" text-anchor="middle" fill="#f5b515" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="700" letter-spacing="16">LIVE</text>
+  <g transform="translate(302 0)">
+    <text x="290" y="108" text-anchor="middle" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="700" letter-spacing="4">HATTERAS</text>
+    <path stroke="#f5b515" stroke-width="5" stroke-linecap="round" d="M72 166h116m204 0h116"/>
+    <text x="290" y="181" text-anchor="middle" fill="#f5b515" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="700" letter-spacing="16">LIVE</text>
   </g>
 </svg>
