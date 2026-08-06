@@ -2,11 +2,12 @@
   --brand-navy: #06263c;
   --brand-navy-deep: #031f33;
   --brand-gold: #f5b515;
+  --brand-gold-dark: #a86f00;
   --brand-cream: #f8f5ee;
   --brand-paper: #fffdf8;
   --brand-ink: #09263e;
-  --brand-muted: #65798b;
-  --brand-line: rgba(6,38,60,.13);
+  --brand-muted: #536979;
+  --brand-line: rgba(6,38,60,.18);
   --brand-shadow: 0 12px 28px rgba(6,38,60,.14);
 }
 
@@ -45,7 +46,6 @@ body {
 .brand-block strong,
 .brand-lockup h1 { color:white !important; }
 
-/* Shared module header treatment */
 .weather-nav,
 .page-header {
   background:linear-gradient(90deg,var(--brand-navy-deep),var(--brand-navy)) !important;
@@ -60,15 +60,14 @@ body {
 .back-link { color:var(--brand-gold) !important; font-weight:800 !important; text-decoration:none !important; }
 .community-picker,
 .station-pill {
-  background:rgba(255,255,255,.10) !important;
-  border:1px solid rgba(245,181,21,.28) !important;
+  background:rgba(255,255,255,.12) !important;
+  border:1px solid rgba(245,181,21,.42) !important;
   color:white !important;
 }
 .community-picker span,
-.station-pill span { color:rgba(255,255,255,.7) !important; }
+.station-pill span { color:rgba(255,255,255,.86) !important; }
 .community-picker select { background:white !important; color:var(--brand-ink) !important; border-color:transparent !important; }
 
-/* Shared cards and panels */
 .hero-card,
 .panel,
 .section-card,
@@ -84,7 +83,7 @@ body {
 .guidance-panel {
   border:1px solid var(--brand-line) !important;
   border-radius:18px !important;
-  background:rgba(255,253,248,.96) !important;
+  background:rgba(255,253,248,.98) !important;
   box-shadow:var(--brand-shadow) !important;
 }
 .hero-card {
@@ -92,34 +91,67 @@ body {
   color:white !important;
 }
 .hero-card .eyebrow,
-.hero-card span,
-.hero-card small { color:rgba(255,255,255,.72) !important; }
+.hero-card > div > span,
+.hero-card > div > small,
+.hero-card .updated { color:rgba(255,255,255,.78) !important; }
 .hero-card strong,
 .hero-card h1,
 .hero-card h2,
 .hero-card .condition,
 .hero-card .current-detail { color:white !important; }
+
+/* Light cards inside dark heroes need dark text. This was the main contrast failure. */
+.hero-card .hero-stats > div,
+.hero-card .hero-stats > article,
+.hero-card .metrics > article {
+  background:#f4f7f8 !important;
+  border:1px solid rgba(6,38,60,.16) !important;
+  color:var(--brand-ink) !important;
+}
+.hero-card .hero-stats span,
+.hero-card .hero-stats small,
+.hero-card .metrics span,
+.hero-card .metrics small {
+  color:#5b6d79 !important;
+  font-weight:700 !important;
+}
+.hero-card .hero-stats strong,
+.hero-card .metrics strong { color:var(--brand-ink) !important; }
+
 .hero-icon,
 .tide-symbol,
 .quick-icon,
 .module-icon {
-  background:rgba(245,181,21,.12) !important;
-  border:1px solid rgba(245,181,21,.28) !important;
+  background:rgba(245,181,21,.14) !important;
+  border:1px solid rgba(245,181,21,.42) !important;
   color:var(--brand-gold) !important;
 }
 
 .eyebrow,
 .section-heading .eyebrow,
-.module-label { color:#d99600 !important; }
+.module-label { color:var(--brand-gold-dark) !important; }
+
+.panel p,
+.section-card p,
+.metric-card span,
+.quick-card small,
+.quick-card p,
+.forecast-card p,
+.forecast-card span,
+.source-note,
+.section-note { color:var(--brand-muted) !important; }
+.metric-card strong,
+.quick-card strong,
+.forecast-card strong,
+.panel h2,
+.section-card h2 { color:var(--brand-ink) !important; }
 
 button,
 .source-link,
 .station-badge,
 .view-button,
 .tab-button.active,
-.filter-button.active {
-  border-radius:12px !important;
-}
+.filter-button.active { border-radius:12px !important; }
 .source-link,
 .station-badge,
 .view-button,
@@ -141,7 +173,7 @@ a { accent-color:var(--brand-gold); }
 .updated a,
 .event-card small,
 .upcoming-row span:last-child,
-.day-event strong { color:#c48600 !important; }
+.day-event strong { color:var(--brand-gold-dark) !important; }
 
 .data-source-footer,
 .source-footer {
@@ -152,7 +184,9 @@ a { accent-color:var(--brand-gold); }
   box-shadow:var(--brand-shadow) !important;
 }
 .data-source-footer span,
-.source-footer span { color:rgba(255,255,255,.68) !important; }
+.source-footer span { color:rgba(255,255,255,.82) !important; }
+.data-source-footer strong,
+.source-footer strong { color:white !important; }
 .data-source-footer a,
 .source-footer a { color:var(--brand-gold) !important; }
 
@@ -161,11 +195,12 @@ select,
 textarea {
   border-color:var(--brand-line) !important;
   border-radius:10px !important;
+  color:var(--brand-ink) !important;
 }
 input:focus,
 select:focus,
 textarea:focus {
-  outline:3px solid rgba(245,181,21,.2) !important;
+  outline:3px solid rgba(245,181,21,.24) !important;
   border-color:var(--brand-gold) !important;
 }
 
